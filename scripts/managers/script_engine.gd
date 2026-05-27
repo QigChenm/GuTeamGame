@@ -99,6 +99,28 @@ func _execute_next() -> void:
 			DialogueManager.display_line(_current_cmd)
 			if not DialogueManager.is_connected("line_finished", _on_line_finished):
 				DialogueManager.connect("line_finished", _on_line_finished, CONNECT_ONE_SHOT)
+		
+		
+		"long_dialogue":
+			_command_pending = true
+			_interaction_pending = true
+
+			CharacterManager.hide_all_characters()
+
+			var scene_root = get_tree().current_scene
+			if scene_root:
+				var dlg_box = scene_root.get_node_or_null("DialogueBox")
+				if dlg_box:
+					dlg_box.hide()
+				var name_rect = scene_root.get_node_or_null("CharacterNameRect")
+				if name_rect:
+					name_rect.hide()
+
+			var text = _current_cmd.get("text", "")
+			DialogueManager.display_long_dialogue(text)
+			if not DialogueManager.is_connected("line_finished", _on_line_finished):
+				DialogueManager.connect("line_finished", _on_line_finished, CONNECT_ONE_SHOT)
+
 
 		"show_choices":
 			_command_pending = true
@@ -313,9 +335,19 @@ func _on_choice_made(choice_id: int) -> void:
 func _on_background_done() -> void:
 	_command_pending = false
 	_clear_timeout()
-	UIManager.set_all_ui_visibility(true, "fade", 0.3)
-	if not UIManager.is_connected("all_ui_shown", _on_ui_shown_after_bg):
-		UIManager.connect("all_ui_shown", _on_ui_shown_after_bg, CONNECT_ONE_SHOT)
+	var next_index = _current_index + 1
+	var skip_ui_show = false
+	if next_index < _commands.size():
+		var next_cmd = _commands[next_index]
+		if next_cmd.get("type", "") == "long_dialogue":
+			skip_ui_show = true
+
+	if skip_ui_show:
+		_advance_to_next()
+	else:
+		UIManager.set_all_ui_visibility(true, "fade", 0.4)
+		if not UIManager.is_connected("all_ui_shown", _on_ui_shown_after_bg):
+			UIManager.connect("all_ui_shown", _on_ui_shown_after_bg, CONNECT_ONE_SHOT)
 
 
 func _on_ui_shown_after_bg() -> void:

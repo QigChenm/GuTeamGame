@@ -2,164 +2,233 @@
 
 [ext_resource type="Script" uid="uid://6lg8kuu0sobw" path="res://scripts/scenes/settings_ui.gd" id="1_b5ayt"]
 [ext_resource type="FontFile" uid="uid://dnb6jjvxuy0x7" path="res://assets/fonts/SIMYOU.TTF" id="2_8r1oi"]
+[ext_resource type="Texture2D" uid="uid://b0acwlb5q7tqb" path="res://assets/ui/universal/通用_界面标题_游戏设置_llf.png" id="2_gmdvq"]
+[ext_resource type="Texture2D" uid="uid://dt71gfuri6xii" path="res://assets/ui/universal/通用_界面背景_llf.png" id="2_k6eqp"]
+[ext_resource type="FontFile" uid="uid://cv4m0rys7x10i" path="res://assets/fonts/ChillRoundGothic_Bold.ttf" id="4_inf46"]
+[ext_resource type="Texture2D" uid="uid://dyl4gdqqh55d2" path="res://assets/ui/settings/设置_滑块_默认_llf.png" id="5_63k7b"]
+[ext_resource type="Texture2D" uid="uid://du8j57i03tjqb" path="res://assets/ui/settings/设置_滑块_焦点_llf.png" id="6_npu2v"]
+[ext_resource type="Texture2D" uid="uid://dln14qvp0ch4d" path="res://assets/ui/settings/设置_滚动条_填充_llf.png" id="7_63k7b"]
+[ext_resource type="Texture2D" uid="uid://befqr2wxpok2c" path="res://assets/ui/settings/设置_滚动条_底部_llf.png" id="7_inf46"]
+[ext_resource type="Texture2D" uid="uid://ddb0hw5mn2qlx" path="res://assets/ui/settings/设置_分隔条_llf.png" id="10_okcqs"]
+[ext_resource type="Texture2D" uid="uid://d3ht4vw13fyop" path="res://assets/ui/settings/设置_项目标题框_llf.png" id="11_6sl7h"]
+[ext_resource type="Texture2D" uid="uid://c2tgh3n15vlpx" path="res://assets/ui/confirm/确认_按钮_默认_llf.png" id="11_tfy2e"]
+[ext_resource type="Texture2D" uid="uid://xb5gph80d615" path="res://assets/ui/confirm/确认_按钮_焦点_llf.png" id="12_knh0g"]
+[ext_resource type="Texture2D" uid="uid://c08ge57nx0xc5" path="res://assets/ui/settings/switch_on.png" id="12_ucsy7"]
+[ext_resource type="Texture2D" uid="uid://d3l1w63b6qbxo" path="res://assets/ui/settings/switch_off.png" id="13_tfy2e"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_npu2v"]
+texture = ExtResource("7_inf46")
+texture_margin_top = 10.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_inf46"]
+texture = ExtResource("7_63k7b")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_npu2v"]
+bg_color = Color(0.8980392, 0.4509804, 0.4509804, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [node name="SettingsUI" type="CanvasLayer" unique_id=2070996895]
 process_mode = 3
 layer = 128
 script = ExtResource("1_b5ayt")
 
-[node name="Background" type="ColorRect" parent="." unique_id=1992751242]
+[node name="Background" type="TextureRect" parent="." unique_id=1174879541]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(1, 1, 1, 0.5019608)
+texture = ExtResource("2_k6eqp")
 
-[node name="Panel" type="Panel" parent="." unique_id=166752744]
+[node name="Title" type="TextureRect" parent="." unique_id=2112049818]
+custom_minimum_size = Vector2(0, 100)
+offset_left = 797.0
+offset_top = 30.0
+offset_right = 1123.0
+offset_bottom = 160.0
+size_flags_horizontal = 4
+texture = ExtResource("2_gmdvq")
+
+[node name="VBoxContainerL" type="VBoxContainer" parent="." unique_id=1099571089]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 158.0
+offset_top = 168.0
+offset_right = -1016.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+theme_override_constants/separation = 50
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=1302695830]
+[node name="SpeedContainer" type="VBoxContainer" parent="VBoxContainerL" unique_id=1182286616]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainerL/SpeedContainer" unique_id=688137668]
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("11_6sl7h")
+
+[node name="Label" type="Label" parent="VBoxContainerL/SpeedContainer/TextureRect" unique_id=1955177411]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -136.0
+offset_top = -66.0
+offset_right = 127.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.36078432, 0.75686276, 0.8980392, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("4_inf46")
+theme_override_font_sizes/font_size = 48
+text = "剧情速度"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextSpeedContainer" type="HBoxContainer" parent="VBoxContainerL/SpeedContainer" unique_id=1678148126]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Label" type="Label" parent="VBoxContainerL/SpeedContainer/TextSpeedContainer" unique_id=1765211924]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.5
+theme_override_colors/font_color = Color(0.36078432, 0.75686276, 0.8980392, 1)
+theme_override_fonts/font = ExtResource("4_inf46")
+theme_override_font_sizes/font_size = 36
+text = "文字显示"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextSpeed" type="HSlider" parent="VBoxContainerL/SpeedContainer/TextSpeedContainer" unique_id=870094035]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_icons/grabber = ExtResource("5_63k7b")
+theme_override_icons/grabber_highlight = ExtResource("6_npu2v")
+theme_override_styles/slider = SubResource("StyleBoxTexture_npu2v")
+theme_override_styles/grabber_area = SubResource("StyleBoxTexture_inf46")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_npu2v")
+min_value = 0.01
+max_value = 0.1
+step = 0.01
+value = 0.09999999999999999
+
+[node name="AutoSpeedContainer" type="HBoxContainer" parent="VBoxContainerL/SpeedContainer" unique_id=1203295701]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Label" type="Label" parent="VBoxContainerL/SpeedContainer/AutoSpeedContainer" unique_id=1044319122]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.5
+theme_override_colors/font_color = Color(0.36078432, 0.75686276, 0.8980392, 1)
+theme_override_fonts/font = ExtResource("4_inf46")
+theme_override_font_sizes/font_size = 36
+text = "自动播放"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AutoSpeed" type="HSlider" parent="VBoxContainerL/SpeedContainer/AutoSpeedContainer" unique_id=914487675]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_icons/grabber = ExtResource("5_63k7b")
+theme_override_icons/grabber_highlight = ExtResource("6_npu2v")
+theme_override_styles/slider = SubResource("StyleBoxTexture_npu2v")
+theme_override_styles/grabber_area = SubResource("StyleBoxTexture_inf46")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_npu2v")
+max_value = 5.0
+step = 0.01
+value = 0.01
+
+[node name="LockContainer" type="VBoxContainer" parent="VBoxContainerL" unique_id=926024790]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainerL/LockContainer" unique_id=416808150]
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("11_6sl7h")
+
+[node name="Label" type="Label" parent="VBoxContainerL/LockContainer/TextureRect" unique_id=1881163345]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -136.0
+offset_top = -66.0
+offset_right = 127.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.36078432, 0.75686276, 0.8980392, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("4_inf46")
+theme_override_font_sizes/font_size = 48
+text = "解锁管理"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ClearSaveContainer" type="HBoxContainer" parent="VBoxContainerL/LockContainer" unique_id=305113103]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Label" type="Label" parent="VBoxContainerL/LockContainer/ClearSaveContainer" unique_id=1383631282]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.5
+theme_override_colors/font_color = Color(0.36078432, 0.75686276, 0.8980392, 1)
+theme_override_fonts/font = ExtResource("4_inf46")
+theme_override_font_sizes/font_size = 36
+text = "清空收藏"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ClearSave" type="TextureButton" parent="VBoxContainerL/LockContainer/ClearSaveContainer" unique_id=1971330182]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+texture_normal = ExtResource("11_tfy2e")
+texture_pressed = ExtResource("12_knh0g")
+texture_hover = ExtResource("12_knh0g")
+
+[node name="Label" type="Label" parent="VBoxContainerL/LockContainer/ClearSaveContainer/ClearSave" unique_id=762389356]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="TitleLabel" type="Label" parent="Panel/VBoxContainer" unique_id=1484686716]
-custom_minimum_size = Vector2(0, 90)
-layout_mode = 2
-size_flags_vertical = 1
-theme_override_fonts/font = ExtResource("2_8r1oi")
-theme_override_font_sizes/font_size = 50
-text = "设置"
+theme_override_fonts/font = ExtResource("4_inf46")
+theme_override_font_sizes/font_size = 32
+text = "确认"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextSpeedContainer" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=1415544979]
+[node name="FullscreenContainer" type="HBoxContainer" parent="VBoxContainerL" unique_id=100613049]
+visible = false
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer/TextSpeedContainer" unique_id=2046340676]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-size_flags_stretch_ratio = 0.5
-theme_override_fonts/font = ExtResource("2_8r1oi")
-theme_override_font_sizes/font_size = 30
-text = "文字显示速度"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TextSpeed" type="HSlider" parent="Panel/VBoxContainer/TextSpeedContainer" unique_id=1601915311]
-custom_minimum_size = Vector2(0, 60)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-min_value = 0.01
-max_value = 0.1
-step = 0.01
-value = 0.01
-
-[node name="AutoSpeedContainer" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=1203295701]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Panel/VBoxContainer/AutoSpeedContainer" unique_id=683296979]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-size_flags_stretch_ratio = 0.5
-theme_override_fonts/font = ExtResource("2_8r1oi")
-theme_override_font_sizes/font_size = 30
-text = "自动播放速度"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="AutoSpeed" type="HSlider" parent="Panel/VBoxContainer/AutoSpeedContainer" unique_id=1324992677]
-custom_minimum_size = Vector2(0, 60)
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = 1.0
-max_value = 5.0
-step = 0.5
-value = 1.0
-
-[node name="BGMVolumeContainer" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=138055903]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Panel/VBoxContainer/BGMVolumeContainer" unique_id=1247885939]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-size_flags_stretch_ratio = 0.5
-theme_override_fonts/font = ExtResource("2_8r1oi")
-theme_override_font_sizes/font_size = 30
-text = "背景音乐音量"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="BGMVolume" type="HSlider" parent="Panel/VBoxContainer/BGMVolumeContainer" unique_id=1593761072]
-custom_minimum_size = Vector2(0, 60)
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = -20.0
-max_value = 20.0
-step = 0.1
-
-[node name="SFXVolumeContainer" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=1899847992]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Panel/VBoxContainer/SFXVolumeContainer" unique_id=27579632]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-size_flags_stretch_ratio = 0.5
-theme_override_fonts/font = ExtResource("2_8r1oi")
-theme_override_font_sizes/font_size = 30
-text = "音效音量"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="SFXVolume" type="HSlider" parent="Panel/VBoxContainer/SFXVolumeContainer" unique_id=2049256060]
-custom_minimum_size = Vector2(0, 60)
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = -20.0
-max_value = 20.0
-step = 0.1
-
-[node name="VoiceVolumeContainer" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=946464008]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Panel/VBoxContainer/VoiceVolumeContainer" unique_id=1881437375]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-size_flags_stretch_ratio = 0.5
-theme_override_fonts/font = ExtResource("2_8r1oi")
-theme_override_font_sizes/font_size = 30
-text = "角色音量"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="VoiceVolume" type="HSlider" parent="Panel/VBoxContainer/VoiceVolumeContainer" unique_id=1210618513]
-custom_minimum_size = Vector2(0, 60)
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = -20.0
-max_value = 20.0
-step = 0.1
-
-[node name="FullscreenContainer" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=1957641105]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Panel/VBoxContainer/FullscreenContainer" unique_id=1863232200]
+[node name="Label" type="Label" parent="VBoxContainerL/FullscreenContainer" unique_id=1211983776]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -170,16 +239,17 @@ text = "全屏模式"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Fullscreen" type="CheckButton" parent="Panel/VBoxContainer/FullscreenContainer" unique_id=1230677526]
+[node name="Fullscreen" type="CheckButton" parent="VBoxContainerL/FullscreenContainer" unique_id=1970350162]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_horizontal = 2
 
-[node name="BGOpacityContainer" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=1532317304]
+[node name="BGOpacityContainer" type="HBoxContainer" parent="VBoxContainerL" unique_id=1261709381]
+visible = false
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer/BGOpacityContainer" unique_id=591697426]
+[node name="Label" type="Label" parent="VBoxContainerL/BGOpacityContainer" unique_id=1301038470]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -190,7 +260,7 @@ text = "背景亮度"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BGOpacity" type="HSlider" parent="Panel/VBoxContainer/BGOpacityContainer" unique_id=1723364491]
+[node name="BGOpacity" type="HSlider" parent="VBoxContainerL/BGOpacityContainer" unique_id=855426655]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -198,30 +268,12 @@ min_value = -50.0
 max_value = 50.0
 step = 0.1
 
-[node name="TextOutlineContainer" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=2053328391]
+[node name="BacklogSizeContainer" type="HBoxContainer" parent="VBoxContainerL" unique_id=2091333161]
+visible = false
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer/TextOutlineContainer" unique_id=714711674]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-size_flags_stretch_ratio = 0.5
-theme_override_fonts/font = ExtResource("2_8r1oi")
-theme_override_font_sizes/font_size = 30
-text = "文本描边"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TextOutline" type="CheckButton" parent="Panel/VBoxContainer/TextOutlineContainer" unique_id=276824130]
-layout_mode = 2
-size_flags_horizontal = 2
-
-[node name="BacklogSizeContainer" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=1405533962]
-custom_minimum_size = Vector2(0, 60)
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Panel/VBoxContainer/BacklogSizeContainer" unique_id=176855138]
+[node name="Label" type="Label" parent="VBoxContainerL/BacklogSizeContainer" unique_id=279188007]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -232,31 +284,177 @@ text = "对话历史"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BacklogSize" type="HSlider" parent="Panel/VBoxContainer/BacklogSizeContainer" unique_id=115674587]
+[node name="BacklogSize" type="HSlider" parent="VBoxContainerL/BacklogSizeContainer" unique_id=162654325]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 
-[node name="ClearSaveContainer" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=1877746070]
-custom_minimum_size = Vector2(0, 60)
+[node name="Divider" type="TextureRect" parent="." unique_id=116071797]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_top = 179.0
+offset_right = 3.0
+offset_bottom = -157.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_okcqs")
+
+[node name="VBoxContainerR" type="VBoxContainer" parent="." unique_id=1302695830]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1000.0
+offset_top = 168.0
+offset_right = -164.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+
+[node name="VolumeContainer" type="VBoxContainer" parent="VBoxContainerR" unique_id=651382289]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer/ClearSaveContainer" unique_id=753268379]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainerR/VolumeContainer" unique_id=172424207]
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("11_6sl7h")
+
+[node name="Label" type="Label" parent="VBoxContainerR/VolumeContainer/TextureRect" unique_id=337831441]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -136.0
+offset_top = -66.0
+offset_right = 127.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.36078432, 0.75686276, 0.8980392, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("4_inf46")
+theme_override_font_sizes/font_size = 48
+text = "音量调节"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BGMVolumeContainer" type="HBoxContainer" parent="VBoxContainerR/VolumeContainer" unique_id=2108595774]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Label" type="Label" parent="VBoxContainerR/VolumeContainer/BGMVolumeContainer" unique_id=482352215]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 size_flags_stretch_ratio = 0.5
-theme_override_fonts/font = ExtResource("2_8r1oi")
-theme_override_font_sizes/font_size = 30
-text = "一键清空收藏"
+theme_override_colors/font_color = Color(0.36078432, 0.75686276, 0.8980392, 1)
+theme_override_fonts/font = ExtResource("4_inf46")
+theme_override_font_sizes/font_size = 36
+text = "背景音乐"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ClearSave" type="Button" parent="Panel/VBoxContainer/ClearSaveContainer" unique_id=1200788646]
-custom_minimum_size = Vector2(200, 0)
+[node name="BGMVolume" type="HSlider" parent="VBoxContainerR/VolumeContainer/BGMVolumeContainer" unique_id=1635781651]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_icons/grabber = ExtResource("5_63k7b")
+theme_override_icons/grabber_highlight = ExtResource("6_npu2v")
+theme_override_styles/slider = SubResource("StyleBoxTexture_npu2v")
+theme_override_styles/grabber_area = SubResource("StyleBoxTexture_inf46")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_npu2v")
+min_value = -20.0
+max_value = 20.0
+step = 0.01
+value = 0.010000000000001563
+
+[node name="SFXVolumeContainer" type="HBoxContainer" parent="VBoxContainerR/VolumeContainer" unique_id=1354841113]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Label" type="Label" parent="VBoxContainerR/VolumeContainer/SFXVolumeContainer" unique_id=375493519]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.5
+theme_override_colors/font_color = Color(0.36078432, 0.75686276, 0.8980392, 1)
+theme_override_fonts/font = ExtResource("4_inf46")
+theme_override_font_sizes/font_size = 36
+text = "音效"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SFXVolume" type="HSlider" parent="VBoxContainerR/VolumeContainer/SFXVolumeContainer" unique_id=1759548501]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_icons/grabber = ExtResource("5_63k7b")
+theme_override_icons/grabber_highlight = ExtResource("6_npu2v")
+theme_override_styles/slider = SubResource("StyleBoxTexture_npu2v")
+theme_override_styles/grabber_area = SubResource("StyleBoxTexture_inf46")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_npu2v")
+min_value = -20.0
+max_value = 20.0
+step = 0.01
+value = 0.010000000000001563
+
+[node name="VoiceVolumeContainer" type="HBoxContainer" parent="VBoxContainerR/VolumeContainer" unique_id=1577095991]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Label" type="Label" parent="VBoxContainerR/VolumeContainer/VoiceVolumeContainer" unique_id=1362930035]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.5
+theme_override_colors/font_color = Color(0.36078432, 0.75686276, 0.8980392, 1)
+theme_override_fonts/font = ExtResource("4_inf46")
+theme_override_font_sizes/font_size = 36
+text = "语音"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VoiceVolume" type="HSlider" parent="VBoxContainerR/VolumeContainer/VoiceVolumeContainer" unique_id=2029494132]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_icons/grabber = ExtResource("5_63k7b")
+theme_override_icons/grabber_highlight = ExtResource("6_npu2v")
+theme_override_styles/slider = SubResource("StyleBoxTexture_npu2v")
+theme_override_styles/grabber_area = SubResource("StyleBoxTexture_inf46")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_npu2v")
+min_value = -20.0
+max_value = 20.0
+step = 0.01
+value = 0.010000000000001563
+
+[node name="SFXContainer" type="HBoxContainer" parent="VBoxContainerR/VolumeContainer" unique_id=2053437901]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Label" type="Label" parent="VBoxContainerR/VolumeContainer/SFXContainer" unique_id=1582860528]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.5
+theme_override_colors/font_color = Color(0.36078432, 0.75686276, 0.8980392, 1)
+theme_override_fonts/font = ExtResource("4_inf46")
+theme_override_font_sizes/font_size = 36
+text = "启用点击音效"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SFXToggle" type="CheckButton" parent="VBoxContainerR/VolumeContainer/SFXContainer" unique_id=837425529]
 layout_mode = 2
 size_flags_horizontal = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_8r1oi")
-theme_override_font_sizes/font_size = 30
-text = "确认"
+theme_override_icons/checked = ExtResource("12_ucsy7")
+theme_override_icons/unchecked = ExtResource("13_tfy2e")

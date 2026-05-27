@@ -6,6 +6,7 @@ signal variable_changed(variable: String, new_value)
 signal cg_unlocked(cg_id: String)
 signal bgm_unlocked(bgm_id: String)
 signal auto_mode_changed(enabled: bool)
+signal skip_mode_changed(enabled: bool)
 
 # ================= 常量 =================
 const UNLOCK_FILE := "user://unlocks.cfg"
@@ -15,9 +16,11 @@ var variables: Dictionary = {}
 var dialogue_history: Array = []
 var current_scene: String = ""
 var open_settings_on_load: bool = false
+var open_gallery_on_load: bool = false
 var text_speed: float = 0.05
 var auto_speed: float = 2.0
 var is_auto_mode: bool = false
+var is_skip_mode: bool = false
 var character_database: Dictionary = {}
 var affection_ui_instance: CanvasLayer = null
 

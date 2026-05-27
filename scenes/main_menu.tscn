@@ -1,29 +1,21 @@
 [gd_scene format=3 uid="uid://xmkfm1nat6ew"]
 
 [ext_resource type="Script" uid="uid://btdb8fgafc5vp" path="res://scripts/scenes/main_menu.gd" id="1_ekxnf"]
-[ext_resource type="FontFile" uid="uid://dnb6jjvxuy0x7" path="res://assets/fonts/SIMYOU.TTF" id="2_bqqt6"]
-[ext_resource type="Texture2D" uid="uid://bteqos2oyyn2c" path="res://assets/backgrounds/bg.png" id="2_wu84c"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bqqt6"]
-bg_color = Color(0.87058824, 0.6117647, 0.57254905, 0.7647059)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wu84c"]
-bg_color = Color(0.87058824, 0.6117647, 0.57254905, 0.92941177)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ln24"]
-bg_color = Color(0.87058824, 0.6117647, 0.57254905, 0.5137255)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[ext_resource type="Texture2D" uid="uid://bu50ib80xm8ly" path="res://assets/backgrounds/main_menu_bg.png" id="2_j7ex8"]
+[ext_resource type="Texture2D" uid="uid://cy08fpyecpnfn" path="res://assets/ui/title/标题_背景装饰遮罩_llf.png" id="3_flqon"]
+[ext_resource type="Texture2D" uid="uid://dfndmrb23uwbj" path="res://assets/ui/title/标题_开始游戏_默认_llf.png" id="3_lgwnu"]
+[ext_resource type="Texture2D" uid="uid://bc3vlcdydxj8v" path="res://assets/ui/title/标题_开始游戏_焦点_llf.png" id="4_flqon"]
+[ext_resource type="Texture2D" uid="uid://c8q0d1opbtmef" path="res://assets/ui/title/标题_读取存档_默认_llf.png" id="5_rcqid"]
+[ext_resource type="Texture2D" uid="uid://g7qowuwpsk1y" path="res://assets/ui/title/标题_读取存档_焦点_llf.png" id="6_1ajci"]
+[ext_resource type="Texture2D" uid="uid://dmt11uifeopsa" path="res://assets/ui/title/标题_游戏设置_默认_llf.png" id="7_7b55j"]
+[ext_resource type="Texture2D" uid="uid://chl2ov7htdcud" path="res://assets/ui/title/标题_游戏设置_焦点_llf.png" id="8_5pajh"]
+[ext_resource type="Texture2D" uid="uid://dqkeu8jnd4pvf" path="res://assets/ui/title/标题_退出游戏_默认_llf.png" id="9_j7ex8"]
+[ext_resource type="Texture2D" uid="uid://rmnm7yxiljlj" path="res://assets/ui/title/标题_插画鉴赏_默认_llf.png" id="10_5pajh"]
+[ext_resource type="Texture2D" uid="uid://lp6indiiwl3u" path="res://assets/ui/title/标题_退出游戏_焦点_llf.png" id="10_a8gd2"]
+[ext_resource type="Texture2D" uid="uid://b0ccf2kxhtmh6" path="res://assets/ui/title/标题_插画鉴赏_焦点_llf.png" id="11_j7ex8"]
+[ext_resource type="Texture2D" uid="uid://ceeurkwo4witf" path="res://assets/ui/title/标题_关于游戏_默认_llf.png" id="12_a8gd2"]
+[ext_resource type="Texture2D" uid="uid://six5g7fklc0x" path="res://assets/ui/title/标题_关于游戏_焦点_llf.png" id="13_hstxw"]
+[ext_resource type="FontFile" uid="uid://cv4m0rys7x10i" path="res://assets/fonts/ChillRoundGothic_Bold.ttf" id="16_a8gd2"]
 
 [node name="MainMenu" type="Control" unique_id=258632053]
 layout_mode = 3
@@ -41,7 +33,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_wu84c")
+texture = ExtResource("2_j7ex8")
+
+[node name="Mask" type="TextureRect" parent="." unique_id=697433643]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_flqon")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1464608072]
 layout_mode = 1
@@ -50,86 +51,89 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -101.0
-offset_top = -25.0
-offset_right = 99.0
-offset_bottom = 232.0
+offset_left = -866.0
+offset_top = -236.0
+offset_right = -604.0
+offset_bottom = 452.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 20
 
-[node name="NewGameButton" type="Button" parent="VBoxContainer" unique_id=1149329021]
+[node name="NewGameButton" type="TextureButton" parent="VBoxContainer" unique_id=1014224730]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_bqqt6")
-theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_bqqt6")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_wu84c")
-theme_override_styles/hover = SubResource("StyleBoxFlat_8ln24")
-text = "新游戏"
+texture_normal = ExtResource("3_lgwnu")
+texture_pressed = ExtResource("4_flqon")
+texture_hover = ExtResource("4_flqon")
 
-[node name="ContinueButton" type="Button" parent="VBoxContainer" unique_id=1509303958]
+[node name="ContinueButton" type="TextureButton" parent="VBoxContainer" unique_id=1557100577]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_bqqt6")
-theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_bqqt6")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_wu84c")
-theme_override_styles/hover = SubResource("StyleBoxFlat_8ln24")
-text = "继续游戏"
+texture_normal = ExtResource("5_rcqid")
+texture_pressed = ExtResource("6_1ajci")
+texture_hover = ExtResource("6_1ajci")
 
-[node name="SettingsButton" type="Button" parent="VBoxContainer" unique_id=557763868]
+[node name="SettingsButton" type="TextureButton" parent="VBoxContainer" unique_id=64559353]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_bqqt6")
-theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_bqqt6")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_wu84c")
-theme_override_styles/hover = SubResource("StyleBoxFlat_8ln24")
-text = "设置"
+texture_normal = ExtResource("7_7b55j")
+texture_pressed = ExtResource("8_5pajh")
+texture_hover = ExtResource("8_5pajh")
 
-[node name="QuitButton" type="Button" parent="VBoxContainer" unique_id=1226020907]
+[node name="GalleryButton" type="TextureButton" parent="VBoxContainer" unique_id=1092877652]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_bqqt6")
-theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_bqqt6")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_wu84c")
-theme_override_styles/hover = SubResource("StyleBoxFlat_8ln24")
-text = "退出"
+texture_normal = ExtResource("10_5pajh")
+texture_pressed = ExtResource("11_j7ex8")
+texture_hover = ExtResource("11_j7ex8")
+
+[node name="InfoButton" type="TextureButton" parent="VBoxContainer" unique_id=351852984]
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("12_a8gd2")
+texture_pressed = ExtResource("13_hstxw")
+texture_hover = ExtResource("13_hstxw")
+
+[node name="QuitButton" type="TextureButton" parent="VBoxContainer" unique_id=1436338782]
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("9_j7ex8")
+texture_pressed = ExtResource("10_a8gd2")
+texture_hover = ExtResource("10_a8gd2")
 
 [node name="VersionLabel" type="Label" parent="." unique_id=96634137]
+visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -23.0
+offset_left = -201.0
+offset_top = -41.0
+offset_right = -3.0
+offset_bottom = -1.0
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_bqqt6")
+theme_override_fonts/font = ExtResource("16_a8gd2")
 theme_override_font_sizes/font_size = 30
-text = "云端缪斯 v0.1"
+text = "旮旯给木 v0.1"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="TitleLabel" type="Label" parent="." unique_id=1671950897]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -270.0
-offset_top = 400.0
-offset_right = 270.0
-offset_bottom = 461.0
+offset_left = -869.0
+offset_top = 136.0
+offset_right = -149.0
+offset_bottom = 217.0
 grow_horizontal = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_bqqt6")
-theme_override_font_sizes/font_size = 60
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("16_a8gd2")
+theme_override_font_sizes/font_size = 80
 text = "请输入旮旯给木标题"
 horizontal_alignment = 1
 vertical_alignment = 1

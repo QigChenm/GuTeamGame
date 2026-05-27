@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b8h2cn73q0im0"]
 
-[ext_resource type="Texture2D" uid="uid://5wwmt2ykcqsy" path="res://assets/ui/leaf.png" id="1_e7y5h"]
+[ext_resource type="Texture2D" uid="uid://5wwmt2ykcqsy" path="res://assets/ui/particles/leaf.png" id="1_e7y5h"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ss2ni"]
 particle_flag_disable_z = true

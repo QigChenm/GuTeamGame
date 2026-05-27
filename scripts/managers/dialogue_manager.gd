@@ -49,9 +49,10 @@ func request_ai_response(input_str: String) -> void:
 	else:
 		# 测试用命令序列（未接入 AI 时自动执行）
 		var test_script = [
-			{"type": "change_background", "background": "gulou_spring", "transition": "fade"},
-			{"type": "particle_play", "effect_id": "petal"},
 			{"type": "play_audio", "audio_id": "spring_forest", "crossfade": 1.5},
+			{"type": "change_background", "background": "gulou_spring", "transition": "fade"},
+			{"type": "long_dialogue", "text": "这是南京大学鼓楼校区北大楼前。[br]什，什么，南京哪个大学？哦，是南京大学啊，我还以为是南京大学呢。[br]刚刚路过了两个男大学生，听到了一些对话：“南京古代是吴国的首都，所以南京大学又称wj大学。你品，你细品。”[br]不得不说，在这所校园里，天天都会有神奇的事情发生。[br]正如上文所说，一名普通南大学子开始了和他妹妹美好的校园生活……[br]这还是我们参加竞赛的初衷吗，不是说好了要做一个解决当代大学生生活压力的AI智能游戏吗？——from a developer"},
+			{"type": "particle_play", "effect_id": "petal"},
 			{"type": "set_characters", "left": {"id": "sister", "expression": "happy", "entrance_animation": "slide_left"}, "entrance_animation": "fade"},
 			{"type": "show_dialogue", "character": "sister", "text": "哥哥，你终于来了！[color=#FFB6C1]今天天气真好呀～[/color]"},
 			{"type": "set_expression", "character": "sister", "expression": "happy"},
@@ -68,8 +69,8 @@ func request_ai_response(input_str: String) -> void:
 			{"type": "show_dialogue", "character": "", "text": "两人一起度过了愉快的下午..."},
 			{"type": "wait", "duration": 1.0},
 			{"type": "clear_stage"},
-			{"type": "change_background", "background": "gulou_winter", "transition": "fade"},
 			{"type": "particle_stop", "effect_id": "petal"},
+			{"type": "change_background", "background": "gulou_winter", "transition": "fade"},
 			{"type": "particle_play", "effect_id": "snow"},
 			{"type": "set_characters", "right": {"id": "sister", "expression": "default", "entrance_animation": "slide_right"}, "entrance_animation": "none"},
 			{"type": "show_dialogue", "character": "sister", "text": "但是...天快黑了，我得回家了。"},
@@ -162,3 +163,17 @@ func is_waiting_for_ui_input() -> bool:
 	if scene and scene.has_method("is_waiting"):
 		return scene.is_waiting_for_input
 	return false
+
+
+func display_long_dialogue(text: String) -> void:
+	if not _scene_instance:
+		_cache_scene_instance()
+	if _scene_instance and _scene_instance.has_method("show_long_dialogue"):
+		_scene_instance.show_long_dialogue(text)
+		if not _scene_instance.is_connected("long_dialogue_finished", _on_long_dialogue_finished):
+			_scene_instance.connect("long_dialogue_finished", _on_long_dialogue_finished, CONNECT_ONE_SHOT)
+
+
+func _on_long_dialogue_finished() -> void:
+	print("[DialogueManager] 长对话结束，发射 line_finished")
+	line_finished.emit()

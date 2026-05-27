@@ -1,0 +1,615 @@
+[gd_scene format=3 uid="uid://cu5hx7fq1xxyc"]
+
+[ext_resource type="Script" uid="uid://dlaboblkr4pdo" path="res://scripts/scenes/save_ui.gd" id="1_tywuy"]
+[ext_resource type="Texture2D" uid="uid://dt71gfuri6xii" path="res://assets/ui/universal/通用_界面背景_llf.png" id="2_brfgo"]
+[ext_resource type="Texture2D" uid="uid://swfiyfy4c5ho" path="res://assets/ui/universal/通用_界面标题_保存存档_llf.png" id="3_ulyid"]
+[ext_resource type="Texture2D" uid="uid://bin6mwvk4afkk" path="res://assets/ui/saveload/存读档_占位图_默认_llf.png" id="4_n7drp"]
+[ext_resource type="Texture2D" uid="uid://bm0fyke3deydl" path="res://assets/ui/saveload/存读档_占位图_焦点_llf.png" id="5_ialeu"]
+[ext_resource type="Texture2D" uid="uid://56fvtmlnibmi" path="res://assets/ui/universal/通用_左翻页_默认_llf.png" id="6_6m7xk"]
+[ext_resource type="Texture2D" uid="uid://c17vnkuxs5qs4" path="res://assets/ui/saveload/存读档_存档信息框_llf.png" id="6_n7drp"]
+[ext_resource type="Texture2D" uid="uid://djmj8jx1ieiaj" path="res://assets/ui/saveload/存读档_删除存档_默认_llf.png" id="6_ulyid"]
+[ext_resource type="Texture2D" uid="uid://docfkux5fofvi" path="res://assets/ui/saveload/存读档_存档框_默认_llf.png" id="7_6m7xk"]
+[ext_resource type="Texture2D" uid="uid://bnpfs78c4e84x" path="res://assets/ui/universal/通用_左翻页_焦点_llf.png" id="7_eys54"]
+[ext_resource type="Texture2D" uid="uid://ccjv8sty3a5r5" path="res://assets/ui/saveload/存读档_删除存档_焦点_llf.png" id="7_n7drp"]
+[ext_resource type="Texture2D" uid="uid://cb7xncs3k5wvf" path="res://assets/ui/universal/通用_页码_默认_llf.png" id="8_1mpp5"]
+[ext_resource type="Texture2D" uid="uid://dce1gv2poh4vq" path="res://assets/ui/saveload/存读档_存档框_焦点_llf.png" id="8_eys54"]
+[ext_resource type="Texture2D" uid="uid://ct2frkwy2o4kn" path="res://assets/ui/universal/通用_页码_选中_llf.png" id="9_w1acp"]
+[ext_resource type="Texture2D" uid="uid://pstq8k4dteyw" path="res://assets/ui/universal/通用_页码_焦点_llf.png" id="10_k1u7f"]
+[ext_resource type="FontFile" uid="uid://cv4m0rys7x10i" path="res://assets/fonts/ChillRoundGothic_Bold.ttf" id="11_erfdm"]
+[ext_resource type="Texture2D" uid="uid://dthet6yrh2uey" path="res://assets/ui/universal/通用_右翻页_默认_llf.png" id="12_h03fq"]
+[ext_resource type="Texture2D" uid="uid://d08h4h76txvj5" path="res://assets/ui/universal/通用_右翻页_焦点_llf.png" id="13_8xw3r"]
+[ext_resource type="Texture2D" uid="uid://dl3f57mxm0ceu" path="res://assets/ui/universal/通用_读取存档_默认_llf.png" id="14_x6jcc"]
+[ext_resource type="Texture2D" uid="uid://dyeook5i5jxts" path="res://assets/ui/universal/通用_读取存档_焦点_llf.png" id="15_0pfsl"]
+
+[node name="SaveUI" type="CanvasLayer" unique_id=1660400489]
+script = ExtResource("1_tywuy")
+
+[node name="Background" type="TextureRect" parent="." unique_id=675333727]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_brfgo")
+
+[node name="TitleLabel" type="TextureRect" parent="." unique_id=966781233]
+offset_left = 797.0
+offset_top = 30.0
+offset_right = 1123.0
+offset_bottom = 160.0
+size_flags_horizontal = 4
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+texture = ExtResource("3_ulyid")
+
+[node name="SlotGrid" type="GridContainer" parent="." unique_id=1586027599]
+offset_top = 182.0
+offset_right = 1920.0
+offset_bottom = 935.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 0
+theme_override_constants/h_separation = -200
+theme_override_constants/v_separation = 120
+columns = 3
+
+[node name="Save1" type="TextureButton" parent="SlotGrid" unique_id=1384857049]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture_normal = ExtResource("4_n7drp")
+texture_pressed = ExtResource("5_ialeu")
+texture_hover = ExtResource("5_ialeu")
+
+[node name="Thumbnail" type="TextureRect" parent="SlotGrid/Save1" unique_id=1711422161]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InfoBg" type="TextureRect" parent="SlotGrid/Save1" unique_id=202027921]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 290.0
+offset_right = 482.0
+offset_bottom = 329.0
+texture = ExtResource("6_n7drp")
+
+[node name="Info" type="Label" parent="SlotGrid/Save1" unique_id=787980102]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 268.0
+offset_right = 479.0
+offset_bottom = 329.0
+theme_override_colors/font_color = Color(0.20392157, 0.52156866, 0.60784316, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 34
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Outline" type="TextureButton" parent="SlotGrid/Save1" unique_id=1311830192]
+layout_mode = 0
+offset_right = 480.0
+offset_bottom = 275.0
+mouse_filter = 1
+texture_normal = ExtResource("7_6m7xk")
+texture_pressed = ExtResource("8_eys54")
+texture_hover = ExtResource("8_eys54")
+
+[node name="DeleteBtn" type="TextureButton" parent="SlotGrid/Save1" unique_id=1546682529]
+layout_mode = 0
+offset_left = 449.0
+offset_top = -14.0
+offset_right = 489.0
+offset_bottom = 26.0
+texture_normal = ExtResource("6_ulyid")
+texture_pressed = ExtResource("7_n7drp")
+texture_hover = ExtResource("7_n7drp")
+
+[node name="Save2" type="TextureButton" parent="SlotGrid" unique_id=1685054356]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture_normal = ExtResource("4_n7drp")
+texture_pressed = ExtResource("5_ialeu")
+texture_hover = ExtResource("5_ialeu")
+
+[node name="Thumbnail" type="TextureRect" parent="SlotGrid/Save2" unique_id=392023534]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InfoBg" type="TextureRect" parent="SlotGrid/Save2" unique_id=1096032699]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 290.0
+offset_right = 482.0
+offset_bottom = 329.0
+texture = ExtResource("6_n7drp")
+
+[node name="Info" type="Label" parent="SlotGrid/Save2" unique_id=1812692620]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 268.0
+offset_right = 479.0
+offset_bottom = 329.0
+theme_override_colors/font_color = Color(0.20392157, 0.52156866, 0.60784316, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 34
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Outline" type="TextureButton" parent="SlotGrid/Save2" unique_id=2094901311]
+layout_mode = 0
+offset_right = 480.0
+offset_bottom = 275.0
+mouse_filter = 1
+texture_normal = ExtResource("7_6m7xk")
+texture_pressed = ExtResource("8_eys54")
+texture_hover = ExtResource("8_eys54")
+
+[node name="DeleteBtn" type="TextureButton" parent="SlotGrid/Save2" unique_id=1248264762]
+layout_mode = 0
+offset_left = 449.0
+offset_top = -14.0
+offset_right = 489.0
+offset_bottom = 26.0
+texture_normal = ExtResource("6_ulyid")
+texture_pressed = ExtResource("7_n7drp")
+texture_hover = ExtResource("7_n7drp")
+
+[node name="Save3" type="TextureButton" parent="SlotGrid" unique_id=1508523524]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture_normal = ExtResource("4_n7drp")
+texture_pressed = ExtResource("5_ialeu")
+texture_hover = ExtResource("5_ialeu")
+
+[node name="Thumbnail" type="TextureRect" parent="SlotGrid/Save3" unique_id=1152149913]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InfoBg" type="TextureRect" parent="SlotGrid/Save3" unique_id=2077743550]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 290.0
+offset_right = 482.0
+offset_bottom = 329.0
+texture = ExtResource("6_n7drp")
+
+[node name="Info" type="Label" parent="SlotGrid/Save3" unique_id=1012321143]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 268.0
+offset_right = 479.0
+offset_bottom = 329.0
+theme_override_colors/font_color = Color(0.20392157, 0.52156866, 0.60784316, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 34
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Outline" type="TextureButton" parent="SlotGrid/Save3" unique_id=1718333110]
+layout_mode = 0
+offset_right = 480.0
+offset_bottom = 275.0
+mouse_filter = 1
+texture_normal = ExtResource("7_6m7xk")
+texture_pressed = ExtResource("8_eys54")
+texture_hover = ExtResource("8_eys54")
+
+[node name="DeleteBtn" type="TextureButton" parent="SlotGrid/Save3" unique_id=1594398691]
+layout_mode = 0
+offset_left = 449.0
+offset_top = -14.0
+offset_right = 489.0
+offset_bottom = 26.0
+texture_normal = ExtResource("6_ulyid")
+texture_pressed = ExtResource("7_n7drp")
+texture_hover = ExtResource("7_n7drp")
+
+[node name="Save4" type="TextureButton" parent="SlotGrid" unique_id=1818538056]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture_normal = ExtResource("4_n7drp")
+texture_pressed = ExtResource("5_ialeu")
+texture_hover = ExtResource("5_ialeu")
+
+[node name="Thumbnail" type="TextureRect" parent="SlotGrid/Save4" unique_id=303979421]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InfoBg" type="TextureRect" parent="SlotGrid/Save4" unique_id=168293301]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 290.0
+offset_right = 482.0
+offset_bottom = 329.0
+texture = ExtResource("6_n7drp")
+
+[node name="Info" type="Label" parent="SlotGrid/Save4" unique_id=1909482117]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 268.0
+offset_right = 479.0
+offset_bottom = 329.0
+theme_override_colors/font_color = Color(0.20392157, 0.52156866, 0.60784316, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 34
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Outline" type="TextureButton" parent="SlotGrid/Save4" unique_id=1433146067]
+layout_mode = 0
+offset_right = 480.0
+offset_bottom = 275.0
+mouse_filter = 1
+texture_normal = ExtResource("7_6m7xk")
+texture_pressed = ExtResource("8_eys54")
+texture_hover = ExtResource("8_eys54")
+
+[node name="DeleteBtn" type="TextureButton" parent="SlotGrid/Save4" unique_id=459966419]
+layout_mode = 0
+offset_left = 449.0
+offset_top = -14.0
+offset_right = 489.0
+offset_bottom = 26.0
+texture_normal = ExtResource("6_ulyid")
+texture_pressed = ExtResource("7_n7drp")
+texture_hover = ExtResource("7_n7drp")
+
+[node name="Save5" type="TextureButton" parent="SlotGrid" unique_id=2105168834]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture_normal = ExtResource("4_n7drp")
+texture_pressed = ExtResource("5_ialeu")
+texture_hover = ExtResource("5_ialeu")
+
+[node name="Thumbnail" type="TextureRect" parent="SlotGrid/Save5" unique_id=1624611558]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InfoBg" type="TextureRect" parent="SlotGrid/Save5" unique_id=1448712801]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 290.0
+offset_right = 482.0
+offset_bottom = 329.0
+texture = ExtResource("6_n7drp")
+
+[node name="Info" type="Label" parent="SlotGrid/Save5" unique_id=802963457]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 268.0
+offset_right = 479.0
+offset_bottom = 329.0
+theme_override_colors/font_color = Color(0.20392157, 0.52156866, 0.60784316, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 34
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Outline" type="TextureButton" parent="SlotGrid/Save5" unique_id=1387744976]
+layout_mode = 0
+offset_right = 480.0
+offset_bottom = 275.0
+mouse_filter = 1
+texture_normal = ExtResource("7_6m7xk")
+texture_pressed = ExtResource("8_eys54")
+texture_hover = ExtResource("8_eys54")
+
+[node name="DeleteBtn" type="TextureButton" parent="SlotGrid/Save5" unique_id=701370814]
+layout_mode = 0
+offset_left = 449.0
+offset_top = -14.0
+offset_right = 489.0
+offset_bottom = 26.0
+texture_normal = ExtResource("6_ulyid")
+texture_pressed = ExtResource("7_n7drp")
+texture_hover = ExtResource("7_n7drp")
+
+[node name="Save6" type="TextureButton" parent="SlotGrid" unique_id=1720692714]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture_normal = ExtResource("4_n7drp")
+texture_pressed = ExtResource("5_ialeu")
+texture_hover = ExtResource("5_ialeu")
+
+[node name="Thumbnail" type="TextureRect" parent="SlotGrid/Save6" unique_id=342188378]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InfoBg" type="TextureRect" parent="SlotGrid/Save6" unique_id=524230705]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 290.0
+offset_right = 482.0
+offset_bottom = 329.0
+texture = ExtResource("6_n7drp")
+
+[node name="Info" type="Label" parent="SlotGrid/Save6" unique_id=1979796905]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 268.0
+offset_right = 479.0
+offset_bottom = 329.0
+theme_override_colors/font_color = Color(0.20392157, 0.52156866, 0.60784316, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 34
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Outline" type="TextureButton" parent="SlotGrid/Save6" unique_id=423134321]
+layout_mode = 0
+offset_right = 480.0
+offset_bottom = 275.0
+mouse_filter = 1
+texture_normal = ExtResource("7_6m7xk")
+texture_pressed = ExtResource("8_eys54")
+texture_hover = ExtResource("8_eys54")
+
+[node name="DeleteBtn" type="TextureButton" parent="SlotGrid/Save6" unique_id=973292178]
+layout_mode = 0
+offset_left = 449.0
+offset_top = -14.0
+offset_right = 489.0
+offset_bottom = 26.0
+texture_normal = ExtResource("6_ulyid")
+texture_pressed = ExtResource("7_n7drp")
+texture_hover = ExtResource("7_n7drp")
+
+[node name="PageNav" type="HBoxContainer" parent="." unique_id=413555277]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 79.0
+offset_top = -92.0
+offset_right = 285.0
+offset_bottom = -32.0
+grow_vertical = 0
+theme_override_constants/separation = 50
+
+[node name="LeftArrow" type="TextureButton" parent="PageNav" unique_id=1712116642]
+layout_mode = 2
+texture_normal = ExtResource("6_6m7xk")
+texture_pressed = ExtResource("7_eys54")
+texture_hover = ExtResource("7_eys54")
+
+[node name="PageButtons" type="GridContainer" parent="PageNav" unique_id=1147979613]
+layout_mode = 2
+theme_override_constants/h_separation = 15
+columns = 9
+
+[node name="Page1" type="TextureButton" parent="PageNav/PageButtons" unique_id=1065470011]
+layout_mode = 2
+texture_normal = ExtResource("8_1mpp5")
+texture_pressed = ExtResource("9_w1acp")
+texture_hover = ExtResource("10_k1u7f")
+metadata/page = 0
+
+[node name="Label" type="Label" parent="PageNav/PageButtons/Page1" unique_id=1392636455]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("11_erfdm")
+theme_override_font_sizes/font_size = 36
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Page2" type="TextureButton" parent="PageNav/PageButtons" unique_id=626562910]
+layout_mode = 2
+texture_normal = ExtResource("8_1mpp5")
+texture_pressed = ExtResource("9_w1acp")
+texture_hover = ExtResource("10_k1u7f")
+metadata/page = 1
+
+[node name="Label" type="Label" parent="PageNav/PageButtons/Page2" unique_id=1717919693]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("11_erfdm")
+theme_override_font_sizes/font_size = 36
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Page3" type="TextureButton" parent="PageNav/PageButtons" unique_id=456678751]
+layout_mode = 2
+texture_normal = ExtResource("8_1mpp5")
+texture_pressed = ExtResource("9_w1acp")
+texture_hover = ExtResource("10_k1u7f")
+metadata/page = 2
+
+[node name="Label" type="Label" parent="PageNav/PageButtons/Page3" unique_id=1622209435]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("11_erfdm")
+theme_override_font_sizes/font_size = 36
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Page4" type="TextureButton" parent="PageNav/PageButtons" unique_id=1135879301]
+layout_mode = 2
+texture_normal = ExtResource("8_1mpp5")
+texture_pressed = ExtResource("9_w1acp")
+texture_hover = ExtResource("10_k1u7f")
+metadata/page = 3
+
+[node name="Label" type="Label" parent="PageNav/PageButtons/Page4" unique_id=1494650394]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("11_erfdm")
+theme_override_font_sizes/font_size = 36
+text = "4"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Page5" type="TextureButton" parent="PageNav/PageButtons" unique_id=141436813]
+layout_mode = 2
+texture_normal = ExtResource("8_1mpp5")
+texture_pressed = ExtResource("9_w1acp")
+texture_hover = ExtResource("10_k1u7f")
+metadata/page = 4
+
+[node name="Label" type="Label" parent="PageNav/PageButtons/Page5" unique_id=1727793264]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("11_erfdm")
+theme_override_font_sizes/font_size = 36
+text = "5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Page6" type="TextureButton" parent="PageNav/PageButtons" unique_id=970424134]
+layout_mode = 2
+texture_normal = ExtResource("8_1mpp5")
+texture_pressed = ExtResource("9_w1acp")
+texture_hover = ExtResource("10_k1u7f")
+metadata/page = 5
+
+[node name="Label" type="Label" parent="PageNav/PageButtons/Page6" unique_id=447814162]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("11_erfdm")
+theme_override_font_sizes/font_size = 36
+text = "6"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Page7" type="TextureButton" parent="PageNav/PageButtons" unique_id=2046131129]
+layout_mode = 2
+texture_normal = ExtResource("8_1mpp5")
+texture_pressed = ExtResource("9_w1acp")
+texture_hover = ExtResource("10_k1u7f")
+metadata/page = 6
+
+[node name="Label" type="Label" parent="PageNav/PageButtons/Page7" unique_id=1634468450]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("11_erfdm")
+theme_override_font_sizes/font_size = 36
+text = "7"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Page8" type="TextureButton" parent="PageNav/PageButtons" unique_id=1800257501]
+layout_mode = 2
+texture_normal = ExtResource("8_1mpp5")
+texture_pressed = ExtResource("9_w1acp")
+texture_hover = ExtResource("10_k1u7f")
+metadata/page = 7
+
+[node name="Label" type="Label" parent="PageNav/PageButtons/Page8" unique_id=71865392]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("11_erfdm")
+theme_override_font_sizes/font_size = 36
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Page9" type="TextureButton" parent="PageNav/PageButtons" unique_id=1956284798]
+layout_mode = 2
+texture_normal = ExtResource("8_1mpp5")
+texture_pressed = ExtResource("9_w1acp")
+texture_hover = ExtResource("10_k1u7f")
+metadata/page = 8
+
+[node name="Label" type="Label" parent="PageNav/PageButtons/Page9" unique_id=1711970387]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("11_erfdm")
+theme_override_font_sizes/font_size = 36
+text = "9"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RightArrow" type="TextureButton" parent="PageNav" unique_id=1733528784]
+layout_mode = 2
+texture_normal = ExtResource("12_h03fq")
+texture_pressed = ExtResource("13_8xw3r")
+texture_hover = ExtResource("13_8xw3r")
+
+[node name="SwitchButton" type="TextureButton" parent="." unique_id=1652359476]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -266.0
+offset_top = -91.0
+offset_right = -86.0
+offset_bottom = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("14_x6jcc")
+texture_pressed = ExtResource("15_0pfsl")
+texture_hover = ExtResource("15_0pfsl")

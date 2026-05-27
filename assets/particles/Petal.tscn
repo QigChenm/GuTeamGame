@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ibnvfp3fx4ux"]
 
-[ext_resource type="Texture2D" uid="uid://dmh6itvp4jdc8" path="res://assets/ui/petal.png" id="1_tiscj"]
+[ext_resource type="Texture2D" uid="uid://dmh6itvp4jdc8" path="res://assets/ui/particles/petal.png" id="1_tiscj"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_s0xpk"]
 particles_animation = true

@@ -2,10 +2,10 @@
 extends Node
 
 # ================= 属性 =================
-var _return_button: Button = null
-var _return_to_menu_button: Button = null
+var _return_button: TextureButton = null
+var _return_to_menu_button: TextureButton = null
 var _return_to_menu_active: bool = false
-var _hud_action_buttons: Array[Button] = []
+var _hud_action_buttons: Array[TextureButton] = []
 var _panel_entry_buttons: Dictionary = {}
 var _ui_elements: Dictionary = {}
 var _panels: Dictionary = {}
@@ -133,6 +133,8 @@ func open_panel(panel_name: String) -> void:
 		show_return_to_menu_button()
 	else:
 		hide_return_to_menu_button()
+		if _return_button:
+			_return_button.visible = true
 
 	get_tree().paused = true
 	if _return_button:
@@ -156,6 +158,8 @@ func close_panel(panel_name: String, unpause: bool = true) -> void:
 			show_return_to_menu_button()
 		else:
 			hide_return_to_menu_button()
+			if _return_button:
+				_return_button.visible = false
 		if _return_to_menu_active:
 			show_return_to_menu_button()
 		else:
@@ -171,7 +175,7 @@ func close_panel(panel_name: String, unpause: bool = true) -> void:
 	else:
 		if _panel_entry_buttons.has(panel_name):
 			for btn in _panel_entry_buttons[panel_name]:
-				if btn != null and btn is Button:
+				if btn != null and btn is TextureButton:
 					btn.visible = true
 		_current_panel = ""
 		panel_closed.emit(panel_name)
@@ -182,7 +186,7 @@ func close_current_panel() -> void:
 		close_panel(_current_panel)
 
 
-func register_panel_entry_button(panel_name: String, button: Button) -> void:
+func register_panel_entry_button(panel_name: String, button: TextureButton) -> void:
 	if not button:
 		return
 	if not _panel_entry_buttons.has(panel_name):
@@ -191,18 +195,18 @@ func register_panel_entry_button(panel_name: String, button: Button) -> void:
 
 
 # ================= HUD 按钮管理 =================
-func register_hud_action_buttons(buttons: Array[Button]) -> void:
+func register_hud_action_buttons(buttons: Array[TextureButton]) -> void:
 	_hud_action_buttons = buttons
 
 
-func set_return_button(button: Button) -> void:
+func set_return_button(button: TextureButton) -> void:
 	_return_button = button
 	if _return_button:
 		_return_button.visible = false
 		_return_button.process_mode = PROCESS_MODE_ALWAYS
 
 
-func set_return_to_menu_button(button: Button) -> void:
+func set_return_to_menu_button(button: TextureButton) -> void:
 	_return_to_menu_button = button
 	if _return_to_menu_button:
 		_return_to_menu_button.visible = false
@@ -250,8 +254,8 @@ func hide_hud_buttons_for_cg() -> void:
 	for btn in _hud_action_buttons:
 		if is_instance_valid(btn):
 			btn.visible = false
-	if has_node("/root/DialogueScene") and has_node("/root/DialogueScene/HUD/TopBar/SettingsButton"):
-		var settings_btn = get_node("/root/DialogueScene/HUD/TopBar/SettingsButton")
+	if has_node("/root/DialogueScene") and has_node("/root/DialogueScene/HUD/ButtonBar/SettingsButton"):
+		var settings_btn = get_node("/root/DialogueScene/HUD/ButtonBar/SettingsButton")
 		if is_instance_valid(settings_btn):
 			settings_btn.visible = true
 	if _return_button and is_instance_valid(_return_button):

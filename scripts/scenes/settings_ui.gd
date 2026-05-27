@@ -2,13 +2,14 @@
 extends CanvasLayer
 
 # ================= 节点引用 =================
-@onready var text_speed_slider: HSlider = $Panel/VBoxContainer/TextSpeedContainer/TextSpeed
-@onready var auto_speed_slider: HSlider = $Panel/VBoxContainer/AutoSpeedContainer/AutoSpeed
-@onready var bgm_volume_slider: HSlider = $Panel/VBoxContainer/BGMVolumeContainer/BGMVolume
-@onready var sfx_volume_slider: HSlider = $Panel/VBoxContainer/SFXVolumeContainer/SFXVolume
-@onready var voice_volume_slider: HSlider = $Panel/VBoxContainer/VoiceVolumeContainer/VoiceVolume
-@onready var fullscreen_check: CheckButton = $Panel/VBoxContainer/FullscreenContainer/Fullscreen
-
+@onready var text_speed_slider: HSlider = $VBoxContainerL/SpeedContainer/TextSpeedContainer/TextSpeed
+@onready var auto_speed_slider: HSlider = $VBoxContainerL/SpeedContainer/AutoSpeedContainer/AutoSpeed
+@onready var bgm_volume_slider: HSlider = $VBoxContainerR/VolumeContainer/BGMVolumeContainer/BGMVolume
+@onready var sfx_volume_slider: HSlider = $VBoxContainerR/VolumeContainer/SFXVolumeContainer/SFXVolume
+@onready var voice_volume_slider: HSlider = $VBoxContainerR/VolumeContainer/VoiceVolumeContainer/VoiceVolume
+@onready var fullscreen_check: CheckButton = $VBoxContainerL/FullscreenContainer/Fullscreen
+@onready var ui_sound_toggle: CheckButton = $VBoxContainerR/VolumeContainer/SFXContainer/SFXToggle
+@onready var clear_save_btn = $VBoxContainerL/LockContainer/ClearSaveContainer/ClearSave
 
 # ================= 初始化 =================
 func _ready() -> void:
@@ -17,6 +18,8 @@ func _ready() -> void:
 
 	_load_settings()
 	_connect_signals()
+	
+	UIManager.panel_opened.connect(_on_panel_opened)
 
 
 func _connect_signals() -> void:
@@ -27,16 +30,19 @@ func _connect_signals() -> void:
 	voice_volume_slider.value_changed.connect(_on_voice_volume_changed)
 	fullscreen_check.toggled.connect(_on_fullscreen_toggled)
 
-	var clear_save_btn = $Panel/VBoxContainer/ClearSaveContainer/ClearSave
 	if clear_save_btn:
 		clear_save_btn.pressed.connect(_on_reset_unlocks)
+	if ui_sound_toggle:
+		ui_sound_toggle.toggled.connect(_on_ui_sound_toggled)
 
 
 # ================= 设置读写 =================
 func _load_settings() -> void:
 	var config = ConfigFile.new()
 	if config.load("user://settings.cfg") == OK:
-		text_speed_slider.value = config.get_value("dialogue", "text_speed", 0.05)
+		var saved_speed = config.get_value("dialogue", "text_speed", 0.05)
+		var slider_value = text_speed_slider.max_value + text_speed_slider.min_value - saved_speed
+		text_speed_slider.value = clamp(slider_value, text_speed_slider.min_value, text_speed_slider.max_value)
 		auto_speed_slider.value = config.get_value("dialogue", "auto_speed", 2.0)
 		bgm_volume_slider.value = config.get_value("audio", "bgm_volume", 0.0)
 		sfx_volume_slider.value = config.get_value("audio", "sfx_volume", 0.0)
@@ -53,7 +59,8 @@ func _load_settings() -> void:
 
 func _save_settings() -> void:
 	var config = ConfigFile.new()
-	config.set_value("dialogue", "text_speed", text_speed_slider.value)
+	config.load("user://settings.cfg")
+	config.set_value("dialogue", "text_speed", GameManager.text_speed)
 	config.set_value("dialogue", "auto_speed", auto_speed_slider.value)
 	config.set_value("audio", "bgm_volume", bgm_volume_slider.value)
 	config.set_value("audio", "sfx_volume", sfx_volume_slider.value)
@@ -64,10 +71,14 @@ func _save_settings() -> void:
 
 # ================= 信号回调 =================
 func _on_text_speed_changed(value: float) -> void:
+	var actual_speed = text_speed_slider.max_value + text_speed_slider.min_value - value
 	if GameManager:
-		GameManager.text_speed = value
+		GameManager.text_speed = actual_speed
+	var scene = get_tree().current_scene
+	if scene and scene.has_method("update_text_speed"):
+		scene.update_text_speed(actual_speed)
 	_save_settings()
-
+	
 
 func _on_auto_speed_changed(value: float) -> void:
 	GameManager.set_variable("auto_speed", value)
@@ -100,3 +111,14 @@ func _on_fullscreen_toggled(button_pressed: bool) -> void:
 func _on_reset_unlocks() -> void:
 	if GameManager:
 		GameManager.reset_all_unlocks()
+		
+		
+func _on_ui_sound_toggled(button_pressed: bool) -> void:
+	if SFXManager:
+		SFXManager.set_enabled(button_pressed)
+		
+		
+func _on_panel_opened(panel_name: String) -> void:
+	if panel_name == "SettingsUI":
+		if ui_sound_toggle and SFXManager:
+			ui_sound_toggle.button_pressed = SFXManager.enabled

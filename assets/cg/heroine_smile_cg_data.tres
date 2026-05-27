@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="CGData" format=3 uid="uid://ciben87hwxjkj"]
 
 [ext_resource type="Script" uid="uid://d3yhouu1cwo4d" path="res://scripts/datatypes/cg_data.gd" id="1_py3rg"]
-[ext_resource type="Texture2D" uid="uid://nbc6jwlkjgwb" path="res://assets/cg/heroine_smile.jpg" id="2_bt00k"]
+[ext_resource type="Texture2D" uid="uid://ct4ab6lflu206" path="res://assets/cg/heroine_example.jpg" id="2_bt00k"]
 
 [resource]
 script = ExtResource("1_py3rg")

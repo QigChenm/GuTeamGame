@@ -1,116 +1,707 @@
 [gd_scene format=3 uid="uid://br1torcq2e8fl"]
 
 [ext_resource type="Script" uid="uid://bo7fwcfi2j182" path="res://scripts/scenes/gallery_ui.gd" id="1_ckkri"]
-[ext_resource type="FontFile" uid="uid://dnb6jjvxuy0x7" path="res://assets/fonts/SIMYOU.TTF" id="2_4b3v3"]
+[ext_resource type="Texture2D" uid="uid://d3afrstb442ei" path="res://assets/ui/universal/通用_界面标题_插画鉴赏_llf.png" id="3_4b3v3"]
+[ext_resource type="Texture2D" uid="uid://dt71gfuri6xii" path="res://assets/ui/universal/通用_界面背景_llf.png" id="3_76k7y"]
+[ext_resource type="Texture2D" uid="uid://cyrkiv26wjyy2" path="res://assets/ui/gallery/鉴赏_占位图_llf.png" id="5_yrhig"]
+[ext_resource type="Texture2D" uid="uid://c17vnkuxs5qs4" path="res://assets/ui/saveload/存读档_存档信息框_llf.png" id="7_66sln"]
+[ext_resource type="Texture2D" uid="uid://bu87qtqoq4k6y" path="res://assets/ui/gallery/鉴赏_插画框_默认_llf.png" id="7_dp2jx"]
+[ext_resource type="Texture2D" uid="uid://d4afhajl1pp2e" path="res://assets/ui/gallery/鉴赏_插画框_焦点_llf.png" id="8_ymn3u"]
+[ext_resource type="Texture2D" uid="uid://56fvtmlnibmi" path="res://assets/ui/universal/通用_左翻页_默认_llf.png" id="9_4600u"]
+[ext_resource type="Texture2D" uid="uid://bnpfs78c4e84x" path="res://assets/ui/universal/通用_左翻页_焦点_llf.png" id="10_rdvu4"]
+[ext_resource type="Texture2D" uid="uid://cb7xncs3k5wvf" path="res://assets/ui/universal/通用_页码_默认_llf.png" id="11_1ddsu"]
+[ext_resource type="Texture2D" uid="uid://ct2frkwy2o4kn" path="res://assets/ui/universal/通用_页码_选中_llf.png" id="12_mq42n"]
+[ext_resource type="Texture2D" uid="uid://pstq8k4dteyw" path="res://assets/ui/universal/通用_页码_焦点_llf.png" id="13_i2vuq"]
+[ext_resource type="FontFile" uid="uid://cv4m0rys7x10i" path="res://assets/fonts/ChillRoundGothic_Bold.ttf" id="14_x7ecp"]
+[ext_resource type="Texture2D" uid="uid://dthet6yrh2uey" path="res://assets/ui/universal/通用_右翻页_默认_llf.png" id="15_yjbqq"]
+[ext_resource type="Texture2D" uid="uid://d08h4h76txvj5" path="res://assets/ui/universal/通用_右翻页_焦点_llf.png" id="16_xxr1f"]
+[ext_resource type="Texture2D" uid="uid://c2tgh3n15vlpx" path="res://assets/ui/confirm/确认_按钮_默认_llf.png" id="17_r6iwt"]
+[ext_resource type="Texture2D" uid="uid://xb5gph80d615" path="res://assets/ui/confirm/确认_按钮_焦点_llf.png" id="18_rnjju"]
 
 [node name="GalleryUI" type="CanvasLayer" unique_id=293602058]
 process_mode = 3
 script = ExtResource("1_ckkri")
-custom_font = ExtResource("2_4b3v3")
-
-[node name="Background" type="ColorRect" parent="." unique_id=1213045817]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(1, 1, 1, 0.5019608)
-
-[node name="Panel" type="Panel" parent="." unique_id=806492784]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=1416760296]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TitleLabel" type="Label" parent="Panel/VBoxContainer" unique_id=362012768]
-custom_minimum_size = Vector2(0, 90)
-layout_mode = 2
-size_flags_vertical = 1
-size_flags_stretch_ratio = 0.5
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_4b3v3")
-theme_override_font_sizes/font_size = 60
-text = "收藏"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TabBar" type="TabBar" parent="Panel/VBoxContainer" unique_id=2048703710]
-custom_minimum_size = Vector2(0, 80)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_4b3v3")
-theme_override_font_sizes/font_size = 25
-current_tab = 0
-tab_alignment = 1
-tab_count = 2
-tab_0/title = "CG鉴赏"
-tab_1/title = "音乐鉴赏"
-
-[node name="CGPage" type="Control" parent="Panel/VBoxContainer" unique_id=2115420806]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="CGGrid" type="GridContainer" parent="Panel/VBoxContainer/CGPage" unique_id=1672314135]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MusicPage" type="Control" parent="Panel/VBoxContainer" unique_id=140341976]
-visible = false
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/MusicPage" unique_id=683542627]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MusicList" type="ItemList" parent="Panel/VBoxContainer/MusicPage/VBoxContainer" unique_id=300726994]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="MusicControls" type="HBoxContainer" parent="Panel/VBoxContainer/MusicPage/VBoxContainer" unique_id=1442361933]
-custom_minimum_size = Vector2(0, 60)
-layout_mode = 2
-theme_override_constants/separation = 500
-
-[node name="PlayBtn" type="Button" parent="Panel/VBoxContainer/MusicPage/VBoxContainer/MusicControls" unique_id=1573961038]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource("2_4b3v3")
-theme_override_font_sizes/font_size = 20
-text = "播放音乐"
-
-[node name="StopBtn" type="Button" parent="Panel/VBoxContainer/MusicPage/VBoxContainer/MusicControls" unique_id=31450789]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource("2_4b3v3")
-theme_override_font_sizes/font_size = 20
-text = "停止播放"
-
-[node name="NowPlaying" type="Label" parent="Panel/VBoxContainer/MusicPage/VBoxContainer/MusicControls" unique_id=1074978322]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-size_flags_horizontal = 3
+custom_font = ExtResource("14_x7ecp")
 
 [node name="PreviewPlayer" type="AudioStreamPlayer" parent="." unique_id=2114888140]
 process_mode = 3
 bus = &"Music"
+
+[node name="Background" type="TextureRect" parent="." unique_id=965818759]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_76k7y")
+
+[node name="Title" type="TextureRect" parent="." unique_id=295344180]
+custom_minimum_size = Vector2(0, 90)
+offset_left = 797.0
+offset_top = 30.0
+offset_right = 1123.0
+offset_bottom = 160.0
+size_flags_horizontal = 4
+size_flags_stretch_ratio = 0.5
+texture = ExtResource("3_4b3v3")
+
+[node name="CGPage" type="Control" parent="." unique_id=2115420806]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 140.0
+offset_right = 1920.0
+offset_bottom = 969.0
+size_flags_vertical = 3
+
+[node name="CGGrid" type="GridContainer" parent="CGPage" unique_id=1672314135]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 41.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = -200
+theme_override_constants/v_separation = 120
+columns = 3
+
+[node name="Save1" type="TextureRect" parent="CGPage/CGGrid" unique_id=907268056]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("5_yrhig")
+
+[node name="Thumbnail" type="TextureRect" parent="CGPage/CGGrid/Save1" unique_id=419293672]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InfoBg" type="TextureRect" parent="CGPage/CGGrid/Save1" unique_id=859903207]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 313.0
+offset_right = 496.0
+offset_bottom = 352.0
+texture = ExtResource("7_66sln")
+
+[node name="Info" type="Label" parent="CGPage/CGGrid/Save1" unique_id=595241408]
+layout_mode = 0
+offset_left = -3.0
+offset_top = 293.0
+offset_right = 515.0
+offset_bottom = 354.0
+theme_override_colors/font_color = Color(0.20392157, 0.52156866, 0.60784316, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("14_x7ecp")
+theme_override_font_sizes/font_size = 34
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Outline" type="TextureButton" parent="CGPage/CGGrid/Save1" unique_id=1076228400]
+layout_mode = 0
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 518.0
+offset_bottom = 294.0
+mouse_filter = 1
+texture_normal = ExtResource("7_dp2jx")
+texture_pressed = ExtResource("8_ymn3u")
+texture_hover = ExtResource("8_ymn3u")
+
+[node name="Save2" type="TextureRect" parent="CGPage/CGGrid" unique_id=403174550]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("5_yrhig")
+
+[node name="Thumbnail" type="TextureRect" parent="CGPage/CGGrid/Save2" unique_id=647063272]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InfoBg" type="TextureRect" parent="CGPage/CGGrid/Save2" unique_id=703276566]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 313.0
+offset_right = 496.0
+offset_bottom = 352.0
+texture = ExtResource("7_66sln")
+
+[node name="Info" type="Label" parent="CGPage/CGGrid/Save2" unique_id=694099373]
+layout_mode = 0
+offset_left = -3.0
+offset_top = 293.0
+offset_right = 515.0
+offset_bottom = 354.0
+theme_override_colors/font_color = Color(0.20392157, 0.52156866, 0.60784316, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("14_x7ecp")
+theme_override_font_sizes/font_size = 34
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Outline" type="TextureButton" parent="CGPage/CGGrid/Save2" unique_id=1464652002]
+layout_mode = 0
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 518.0
+offset_bottom = 294.0
+mouse_filter = 1
+texture_normal = ExtResource("7_dp2jx")
+texture_pressed = ExtResource("8_ymn3u")
+texture_hover = ExtResource("8_ymn3u")
+
+[node name="Save3" type="TextureRect" parent="CGPage/CGGrid" unique_id=2094088874]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("5_yrhig")
+
+[node name="Thumbnail" type="TextureRect" parent="CGPage/CGGrid/Save3" unique_id=144127972]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InfoBg" type="TextureRect" parent="CGPage/CGGrid/Save3" unique_id=189252844]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 313.0
+offset_right = 496.0
+offset_bottom = 352.0
+texture = ExtResource("7_66sln")
+
+[node name="Info" type="Label" parent="CGPage/CGGrid/Save3" unique_id=476056784]
+layout_mode = 0
+offset_left = -3.0
+offset_top = 293.0
+offset_right = 515.0
+offset_bottom = 354.0
+theme_override_colors/font_color = Color(0.20392157, 0.52156866, 0.60784316, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("14_x7ecp")
+theme_override_font_sizes/font_size = 34
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Outline" type="TextureButton" parent="CGPage/CGGrid/Save3" unique_id=434479820]
+layout_mode = 0
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 518.0
+offset_bottom = 294.0
+mouse_filter = 1
+texture_normal = ExtResource("7_dp2jx")
+texture_pressed = ExtResource("8_ymn3u")
+texture_hover = ExtResource("8_ymn3u")
+
+[node name="Save4" type="TextureRect" parent="CGPage/CGGrid" unique_id=1559454613]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("5_yrhig")
+
+[node name="Thumbnail" type="TextureRect" parent="CGPage/CGGrid/Save4" unique_id=1507830525]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InfoBg" type="TextureRect" parent="CGPage/CGGrid/Save4" unique_id=832252703]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 313.0
+offset_right = 496.0
+offset_bottom = 352.0
+texture = ExtResource("7_66sln")
+
+[node name="Info" type="Label" parent="CGPage/CGGrid/Save4" unique_id=1408568348]
+layout_mode = 0
+offset_left = -3.0
+offset_top = 293.0
+offset_right = 515.0
+offset_bottom = 354.0
+theme_override_colors/font_color = Color(0.20392157, 0.52156866, 0.60784316, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("14_x7ecp")
+theme_override_font_sizes/font_size = 34
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Outline" type="TextureButton" parent="CGPage/CGGrid/Save4" unique_id=91028941]
+layout_mode = 0
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 518.0
+offset_bottom = 294.0
+mouse_filter = 1
+texture_normal = ExtResource("7_dp2jx")
+texture_pressed = ExtResource("8_ymn3u")
+texture_hover = ExtResource("8_ymn3u")
+
+[node name="Save5" type="TextureRect" parent="CGPage/CGGrid" unique_id=1345262967]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("5_yrhig")
+
+[node name="Thumbnail" type="TextureRect" parent="CGPage/CGGrid/Save5" unique_id=1025219137]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InfoBg" type="TextureRect" parent="CGPage/CGGrid/Save5" unique_id=684268443]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 313.0
+offset_right = 496.0
+offset_bottom = 352.0
+texture = ExtResource("7_66sln")
+
+[node name="Info" type="Label" parent="CGPage/CGGrid/Save5" unique_id=1813677365]
+layout_mode = 0
+offset_left = -3.0
+offset_top = 293.0
+offset_right = 515.0
+offset_bottom = 354.0
+theme_override_colors/font_color = Color(0.20392157, 0.52156866, 0.60784316, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("14_x7ecp")
+theme_override_font_sizes/font_size = 34
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Outline" type="TextureButton" parent="CGPage/CGGrid/Save5" unique_id=1370469218]
+layout_mode = 0
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 518.0
+offset_bottom = 294.0
+mouse_filter = 1
+texture_normal = ExtResource("7_dp2jx")
+texture_pressed = ExtResource("8_ymn3u")
+texture_hover = ExtResource("8_ymn3u")
+
+[node name="Save6" type="TextureRect" parent="CGPage/CGGrid" unique_id=734242342]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("5_yrhig")
+
+[node name="Thumbnail" type="TextureRect" parent="CGPage/CGGrid/Save6" unique_id=1811181157]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InfoBg" type="TextureRect" parent="CGPage/CGGrid/Save6" unique_id=787444242]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 313.0
+offset_right = 496.0
+offset_bottom = 352.0
+texture = ExtResource("7_66sln")
+
+[node name="Info" type="Label" parent="CGPage/CGGrid/Save6" unique_id=1322898604]
+layout_mode = 0
+offset_left = -3.0
+offset_top = 293.0
+offset_right = 515.0
+offset_bottom = 354.0
+theme_override_colors/font_color = Color(0.20392157, 0.52156866, 0.60784316, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("14_x7ecp")
+theme_override_font_sizes/font_size = 34
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Outline" type="TextureButton" parent="CGPage/CGGrid/Save6" unique_id=839043994]
+layout_mode = 0
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 518.0
+offset_bottom = 294.0
+mouse_filter = 1
+texture_normal = ExtResource("7_dp2jx")
+texture_pressed = ExtResource("8_ymn3u")
+texture_hover = ExtResource("8_ymn3u")
+
+[node name="PageNav" type="HBoxContainer" parent="CGPage" unique_id=1272050930]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 31.0
+offset_top = 26.0
+offset_right = 925.0
+offset_bottom = 86.0
+grow_vertical = 0
+theme_override_constants/separation = 50
+
+[node name="LeftArrow" type="TextureButton" parent="CGPage/PageNav" unique_id=1472711705]
+layout_mode = 2
+texture_normal = ExtResource("9_4600u")
+texture_pressed = ExtResource("10_rdvu4")
+texture_hover = ExtResource("10_rdvu4")
+
+[node name="PageButtons" type="GridContainer" parent="CGPage/PageNav" unique_id=746996700]
+layout_mode = 2
+theme_override_constants/h_separation = 15
+columns = 9
+
+[node name="Page1" type="TextureButton" parent="CGPage/PageNav/PageButtons" unique_id=621795456]
+layout_mode = 2
+texture_normal = ExtResource("11_1ddsu")
+texture_pressed = ExtResource("12_mq42n")
+texture_hover = ExtResource("13_i2vuq")
+metadata/page = 0
+
+[node name="Label" type="Label" parent="CGPage/PageNav/PageButtons/Page1" unique_id=1993349868]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("14_x7ecp")
+theme_override_font_sizes/font_size = 36
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Page2" type="TextureButton" parent="CGPage/PageNav/PageButtons" unique_id=170834946]
+layout_mode = 2
+texture_normal = ExtResource("11_1ddsu")
+texture_pressed = ExtResource("12_mq42n")
+texture_hover = ExtResource("13_i2vuq")
+metadata/page = 1
+
+[node name="Label" type="Label" parent="CGPage/PageNav/PageButtons/Page2" unique_id=774389613]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("14_x7ecp")
+theme_override_font_sizes/font_size = 36
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Page3" type="TextureButton" parent="CGPage/PageNav/PageButtons" unique_id=1954993749]
+layout_mode = 2
+texture_normal = ExtResource("11_1ddsu")
+texture_pressed = ExtResource("12_mq42n")
+texture_hover = ExtResource("13_i2vuq")
+metadata/page = 2
+
+[node name="Label" type="Label" parent="CGPage/PageNav/PageButtons/Page3" unique_id=1487281859]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("14_x7ecp")
+theme_override_font_sizes/font_size = 36
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Page4" type="TextureButton" parent="CGPage/PageNav/PageButtons" unique_id=1817116846]
+layout_mode = 2
+texture_normal = ExtResource("11_1ddsu")
+texture_pressed = ExtResource("12_mq42n")
+texture_hover = ExtResource("13_i2vuq")
+metadata/page = 3
+
+[node name="Label" type="Label" parent="CGPage/PageNav/PageButtons/Page4" unique_id=2142633659]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("14_x7ecp")
+theme_override_font_sizes/font_size = 36
+text = "4"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Page5" type="TextureButton" parent="CGPage/PageNav/PageButtons" unique_id=1798136062]
+layout_mode = 2
+texture_normal = ExtResource("11_1ddsu")
+texture_pressed = ExtResource("12_mq42n")
+texture_hover = ExtResource("13_i2vuq")
+metadata/page = 4
+
+[node name="Label" type="Label" parent="CGPage/PageNav/PageButtons/Page5" unique_id=891182616]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("14_x7ecp")
+theme_override_font_sizes/font_size = 36
+text = "5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Page6" type="TextureButton" parent="CGPage/PageNav/PageButtons" unique_id=528616656]
+layout_mode = 2
+texture_normal = ExtResource("11_1ddsu")
+texture_pressed = ExtResource("12_mq42n")
+texture_hover = ExtResource("13_i2vuq")
+metadata/page = 5
+
+[node name="Label" type="Label" parent="CGPage/PageNav/PageButtons/Page6" unique_id=626428695]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("14_x7ecp")
+theme_override_font_sizes/font_size = 36
+text = "6"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Page7" type="TextureButton" parent="CGPage/PageNav/PageButtons" unique_id=75547573]
+layout_mode = 2
+texture_normal = ExtResource("11_1ddsu")
+texture_pressed = ExtResource("12_mq42n")
+texture_hover = ExtResource("13_i2vuq")
+metadata/page = 6
+
+[node name="Label" type="Label" parent="CGPage/PageNav/PageButtons/Page7" unique_id=53568234]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("14_x7ecp")
+theme_override_font_sizes/font_size = 36
+text = "7"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Page8" type="TextureButton" parent="CGPage/PageNav/PageButtons" unique_id=2049984013]
+layout_mode = 2
+texture_normal = ExtResource("11_1ddsu")
+texture_pressed = ExtResource("12_mq42n")
+texture_hover = ExtResource("13_i2vuq")
+metadata/page = 7
+
+[node name="Label" type="Label" parent="CGPage/PageNav/PageButtons/Page8" unique_id=482338598]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("14_x7ecp")
+theme_override_font_sizes/font_size = 36
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Page9" type="TextureButton" parent="CGPage/PageNav/PageButtons" unique_id=1956733987]
+layout_mode = 2
+texture_normal = ExtResource("11_1ddsu")
+texture_pressed = ExtResource("12_mq42n")
+texture_hover = ExtResource("13_i2vuq")
+metadata/page = 8
+
+[node name="Label" type="Label" parent="CGPage/PageNav/PageButtons/Page9" unique_id=1373017660]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("14_x7ecp")
+theme_override_font_sizes/font_size = 36
+text = "9"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RightArrow" type="TextureButton" parent="CGPage/PageNav" unique_id=2146981664]
+layout_mode = 2
+texture_normal = ExtResource("15_yjbqq")
+texture_pressed = ExtResource("16_xxr1f")
+texture_hover = ExtResource("16_xxr1f")
+
+[node name="MusicPage" type="Control" parent="." unique_id=140341976]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+
+[node name="MusicList" type="ItemList" parent="MusicPage" unique_id=300726994]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 163.0
+offset_right = 1876.0
+offset_bottom = 966.0
+size_flags_vertical = 3
+theme_override_constants/v_separation = 20
+theme_override_fonts/font = ExtResource("14_x7ecp")
+theme_override_font_sizes/font_size = 36
+
+[node name="PlayBtn" type="TextureButton" parent="MusicPage" unique_id=467872726]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 0
+offset_left = 39.0
+offset_top = 997.0
+offset_right = 239.0
+offset_bottom = 1057.0
+size_flags_horizontal = 3
+texture_normal = ExtResource("17_r6iwt")
+texture_pressed = ExtResource("18_rnjju")
+texture_hover = ExtResource("18_rnjju")
+
+[node name="Label" type="Label" parent="MusicPage/PlayBtn" unique_id=10817737]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("14_x7ecp")
+theme_override_font_sizes/font_size = 36
+text = "播放音乐"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StopBtn" type="TextureButton" parent="MusicPage" unique_id=813460820]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 0
+offset_left = 267.0
+offset_top = 997.0
+offset_right = 467.0
+offset_bottom = 1057.0
+size_flags_horizontal = 3
+texture_normal = ExtResource("17_r6iwt")
+texture_pressed = ExtResource("18_rnjju")
+texture_hover = ExtResource("18_rnjju")
+
+[node name="Label" type="Label" parent="MusicPage/StopBtn" unique_id=1023441688]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("14_x7ecp")
+theme_override_font_sizes/font_size = 36
+text = "停止播放"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NowPlaying" type="RichTextLabel" parent="MusicPage" unique_id=2090167610]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 0
+offset_left = 575.0
+offset_top = 997.0
+offset_right = 1017.0
+offset_bottom = 1057.0
+size_flags_horizontal = 3
+theme_override_colors/default_color = Color(0.8980392, 0.4509804, 0.4509804, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/normal_font = ExtResource("14_x7ecp")
+theme_override_fonts/bold_font = ExtResource("14_x7ecp")
+theme_override_fonts/bold_italics_font = ExtResource("14_x7ecp")
+theme_override_fonts/italics_font = ExtResource("14_x7ecp")
+theme_override_fonts/mono_font = ExtResource("14_x7ecp")
+theme_override_font_sizes/normal_font_size = 36
+theme_override_font_sizes/bold_font_size = 36
+theme_override_font_sizes/bold_italics_font_size = 36
+theme_override_font_sizes/italics_font_size = 36
+theme_override_font_sizes/mono_font_size = 36
+bbcode_enabled = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1083060636]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -463.0
+offset_top = -85.0
+offset_right = -43.0
+offset_bottom = -25.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/separation = 20
+
+[node name="CGTabBtn" type="TextureButton" parent="HBoxContainer" unique_id=1362913686]
+layout_mode = 2
+texture_normal = ExtResource("17_r6iwt")
+texture_pressed = ExtResource("18_rnjju")
+texture_hover = ExtResource("18_rnjju")
+
+[node name="Label" type="Label" parent="HBoxContainer/CGTabBtn" unique_id=1697035325]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("14_x7ecp")
+theme_override_font_sizes/font_size = 36
+text = "CG鉴赏"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MusicTabBtn" type="TextureButton" parent="HBoxContainer" unique_id=1703040101]
+layout_mode = 2
+texture_normal = ExtResource("17_r6iwt")
+texture_pressed = ExtResource("18_rnjju")
+texture_hover = ExtResource("18_rnjju")
+
+[node name="Label" type="Label" parent="HBoxContainer/MusicTabBtn" unique_id=1487417603]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("14_x7ecp")
+theme_override_font_sizes/font_size = 36
+text = "音乐鉴赏"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -146,6 +146,24 @@ func set_expression(character_id: String, expression_id: String) -> void:
 
 
 # ================= 舞台清理 =================
+func hide_all_characters() -> void:
+	for pos in _active_roles:
+		var sprite: CharacterDisplay = _sprites.get(pos)
+		if sprite:
+			sprite.hide()  # 直接隐藏节点，但保留 _active_roles
+	print("[CharacterManager] 所有角色已临时隐藏。")
+
+
+func show_all_characters() -> void:
+	for pos in _active_roles:
+		var sprite: CharacterDisplay = _sprites.get(pos)
+		if sprite:
+			sprite.show()
+			# 确保呼吸动画等继续
+			sprite.start_idle()
+	print("[CharacterManager] 所有角色已重新显示。")
+
+
 func _clear_all_roles_without_animation() -> void:
 	for pos in _sprites:
 		var sprite: CharacterDisplay = _sprites[pos]

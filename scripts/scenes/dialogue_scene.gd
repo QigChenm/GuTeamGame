@@ -4,6 +4,7 @@ extends Control
 # ================= 信号 =================
 signal continue_pressed
 signal choice_selected(choice_id: int)
+signal long_dialogue_finished
 
 # ================= 属性 =================
 @export var custom_font: Font
@@ -12,20 +13,22 @@ signal choice_selected(choice_id: int)
 @onready var background: TextureRect = $Background
 @onready var char_left: CharacterDisplay = $SpriteLeft
 @onready var char_right: CharacterDisplay = $SpriteRight
-@onready var dialogue_box: Panel = $DialogueBox
-@onready var portrait: TextureRect = $CharacterNameRect/Portrait
-@onready var character_name_rect: TextureRect = $CharacterNameRect
-@onready var name_label: Label = $CharacterNameRect/CharacterName
+@onready var dialogue_box: TextureRect = $DialogueBox
+@onready var portrait: TextureRect = $DialogueBox/CharacterNameRect/Portrait
+@onready var character_name_rect: TextureRect = $DialogueBox/CharacterNameRect
+@onready var name_label: RichTextLabel = $DialogueBox/CharacterNameRect/CharacterName
 @onready var text_label: RichTextLabel = $DialogueBox/DialogueText
 @onready var click_indicator: Label = $DialogueBox/ClickIndicator
 @onready var choice_panel: VBoxContainer = $ChoicePanel
-@onready var choice_buttons: Array[Button] = [
+@onready var choice_buttons: Array[TextureButton] = [
 	$ChoicePanel/Choice1, $ChoicePanel/Choice2, $ChoicePanel/Choice3
 ]
 @onready var background_node: TextureRect = $Background
 @onready var weather_layer: Control = $WeatherLayer
 @onready var cg_display: TextureRect = $CGLayer/CGDisplay
-@onready var save_hint_label: Label = $CGLayer/SaveHint
+@onready var fullscreen_text: RichTextLabel = $LongDialogueLayer/TextureRect/FullscreenText
+@onready var long_close_btn: TextureButton = $LongDialogueLayer/TextureRect/CloseButton
+@onready var long_dialogue_container:TextureRect = $LongDialogueLayer/TextureRect
 
 # ---------- 状态变量 ----------
 var is_waiting_for_input: bool = false
@@ -33,18 +36,24 @@ var current_choices: Array = []
 
 # 打字机效果
 var typewriter_tween: Tween = null
+var typewriter_timer: Timer = null
+var long_typewriter_timer: Timer = null
+var long_typewriter_tween: Tween = null
+var long_skip_timer: Timer = null
+var skip_advance_timer: Timer = null
 var is_typewriter_playing: bool = false
 var _full_text: String = ""
 var _typing_speed: float = 0.05
 
 # HUD 与面板实例
 var hud_instance: CanvasLayer = null
-var save_load_ui_instance: CanvasLayer = null
 var save_hint_tween: Tween = null
+var choice_labels: Array[Label] = []
 
 # 自动模式
 var auto_advance_timer: Timer = null
 var auto_mode_paused_by_choice: bool = false
+var skip_mode_paused_by_choice: bool = false
 var _current_line_recorded: bool = false
 
 
@@ -64,6 +73,11 @@ func _init_ui_basics() -> void:
 	choice_panel.hide()
 	for i in range(choice_buttons.size()):
 		choice_buttons[i].pressed.connect(_on_choice_pressed.bind(i + 1))
+	for btn in choice_buttons:
+		var label = btn.get_node_or_null("Label") as Label
+		choice_labels.append(label)
+		btn.mouse_entered.connect(Callable(self, "_on_choice_mouse_entered").bind(btn))
+		btn.mouse_exited.connect(Callable(self, "_on_choice_mouse_exited").bind(btn))
 
 
 # ================= 系统注册（舞台、背景、天气、CG、UI元素） =================
@@ -109,17 +123,18 @@ func _instantiate_hud() -> void:
 	add_child(hud_instance)
 
 	# 获取所有按钮引用
-	var settings_btn = hud_instance.get_node_or_null("TopBar/SettingsButton")
+	var settings_btn = hud_instance.get_node_or_null("ButtonBar/SettingsButton")
 	var affection_btn = hud_instance.get_node_or_null("TopBar/AffectionButton")
-	var save_btn = hud_instance.get_node_or_null("TopBar/SaveButton")
-	var load_btn = hud_instance.get_node_or_null("TopBar/LoadButton")
-	var return_btn = hud_instance.get_node_or_null("TopBar/ReturnButton")
-	var return_to_menu_btn = hud_instance.get_node_or_null("TopBar/ReturnToMenuButton")
-	var home_btn = hud_instance.get_node_or_null("HomeButton")
-	var backlog_btn = hud_instance.get_node_or_null("BacklogButton")
+	var save_btn = hud_instance.get_node_or_null("ButtonBar/SaveButton")
+	var load_btn = hud_instance.get_node_or_null("ButtonBar/LoadButton")
+	var return_btn = hud_instance.get_node_or_null("ReturnButton")
+	var return_to_menu_btn = hud_instance.get_node_or_null("ReturnToMenuButton")
+	var home_btn = hud_instance.get_node_or_null("ButtonBar/HomeButton")
+	var backlog_btn = hud_instance.get_node_or_null("ButtonBar/BacklogButton")
 	var quick_save_btn = hud_instance.get_node_or_null("QuickSaveButton")
-	var gallery_btn = hud_instance.get_node_or_null("GalleryButton")
-	var auto_btn = hud_instance.get_node_or_null("AutoButton")
+	var quick_load_btn = hud_instance.get_node_or_null("QuickLoadButton")
+	var auto_btn = hud_instance.get_node_or_null("ButtonBar/AutoButton")
+	var skip_btn = hud_instance.get_node_or_null("ButtonBar/SkipButton")
 
 	# 连接信号
 	if settings_btn:
@@ -136,11 +151,14 @@ func _instantiate_hud() -> void:
 		backlog_btn.pressed.connect(_on_backlog_button_pressed)
 	if quick_save_btn:
 		quick_save_btn.pressed.connect(_on_quick_save_pressed)
+	if quick_load_btn:
+		quick_load_btn.pressed.connect(_on_quick_load_pressed)
 	if auto_btn:
 		auto_btn.pressed.connect(_on_auto_button_pressed)
-	if gallery_btn:
-		gallery_btn.pressed.connect(func(): UIManager.open_panel("GalleryUI"))
-
+	if skip_btn:
+		skip_btn.pressed.connect(_on_skip_button_pressed)
+	if long_close_btn:
+		long_close_btn.pressed.connect(_on_long_close_pressed)
 	if return_btn:
 		UIManager.set_return_button(return_btn)
 		return_btn.pressed.connect(UIManager.close_current_panel)
@@ -149,8 +167,8 @@ func _instantiate_hud() -> void:
 		return_to_menu_btn.pressed.connect(_on_return_to_menu_pressed)
 
 	# 将所有功能按钮注册到 UIManager（以便统一显隐管理）
-	var all_buttons: Array[Button] = []
-	for btn in [settings_btn, auto_btn, gallery_btn, quick_save_btn, backlog_btn, home_btn, affection_btn, save_btn, load_btn]:
+	var all_buttons: Array[TextureButton] = []
+	for btn in [settings_btn, auto_btn, skip_btn, quick_save_btn, quick_load_btn, backlog_btn, home_btn, affection_btn, save_btn, load_btn]:
 		if btn:
 			all_buttons.append(btn)
 	UIManager.register_hud_action_buttons(all_buttons)
@@ -159,10 +177,12 @@ func _instantiate_hud() -> void:
 # ================= 面板实例化与注册 =================
 func _instantiate_panels() -> void:
 	_load_and_register("AffectionUI", "res://scenes/affection_ui.tscn")
-	_load_and_register("SaveLoadUI", "res://scenes/save_load_ui.tscn", func(panel): save_load_ui_instance = panel)
+	_load_and_register("SaveUI", "res://scenes/save_ui.tscn")
+	_load_and_register("LoadUI", "res://scenes/load_ui.tscn")
 	_load_and_register("SettingsUI", "res://scenes/settings_ui.tscn")
 	_load_and_register("BacklogUI", "res://scenes/backlog_ui.tscn")
 	_load_and_register("GalleryUI", "res://scenes/gallery_ui.tscn", func(panel): panel.custom_font = custom_font)
+	_load_and_register("TipUI", "res://scenes/tip_ui.tscn")
 
 
 func _load_and_register(panel_name: String, scene_path: String, callback: Callable = Callable()) -> void:
@@ -189,6 +209,9 @@ func _start_game_flow() -> void:
 	if GameManager.open_settings_on_load:
 		GameManager.open_settings_on_load = false
 		call_deferred("_open_settings_from_menu")
+	elif GameManager.open_gallery_on_load:
+		GameManager.open_gallery_on_load = false
+		call_deferred("_open_gallery_from_menu")
 	elif SaveManager.continue_mode:
 		SaveManager.continue_mode = false
 		call_deferred("_open_load_panel_on_continue")
@@ -209,9 +232,8 @@ func display_dialogue(data: Dictionary) -> void:
 	choice_panel.hide()
 	_kill_typewriter()
 
-	# 更新角色名与头像
 	var character = data.get("character", "")
-	var display_name = _resolve_character_name(character)
+	var display_name = "[b]" + _resolve_character_name(character) + "[/b]"
 	name_label.text = display_name
 	if character == "":
 		character_name_rect.hide()
@@ -222,33 +244,39 @@ func display_dialogue(data: Dictionary) -> void:
 			portrait.texture = GameManager.character_database[character].portrait
 			portrait.show()
 
-	# 启动打字机动画
 	_full_text = data.get("text", "")
 	text_label.text = _full_text
 	text_label.visible_characters = 0
 
 	var speed = data.get("speed", GameManager.text_speed)
 	var total_chars = _full_text.length()
-	var duration = total_chars * speed
 	is_typewriter_playing = true
 
-	typewriter_tween = create_tween()
-	typewriter_tween.tween_property(text_label, "visible_characters", total_chars, duration)
-	typewriter_tween.tween_callback(func():
+	var character_id = character
+
+	if GameManager.is_skip_mode:
+		_stop_auto_timer()
+		text_label.visible_characters = total_chars
 		is_typewriter_playing = false
-		if GameManager.is_auto_mode:
-			_start_auto_timer()
-			click_indicator.hide()
-		else:
-			_stop_auto_timer()
-			is_waiting_for_input = true
-			click_indicator.show()
-		_record_dialogue_history(display_name)
-	)
+		_record_dialogue_history(display_name, character_id)
+		_start_skip_advance_timer()
+		is_waiting_for_input = true
+		click_indicator.hide()
+	else:
+		_start_typewriter_timer(total_chars, speed, func():
+			is_typewriter_playing = false
+			if GameManager.is_auto_mode:
+				_start_auto_timer()
+				click_indicator.hide()
+			else:
+				_stop_auto_timer()
+				is_waiting_for_input = true
+				click_indicator.show()
+			_record_dialogue_history(display_name, character_id)
+		)
 
 	dialogue_box.show()
 	text_label.show()
-
 
 func _resolve_character_name(character: String) -> String:
 	if character != "" and GameManager.character_database.has(character):
@@ -260,24 +288,32 @@ func _kill_typewriter() -> void:
 	if typewriter_tween and typewriter_tween.is_running():
 		typewriter_tween.kill()
 	is_typewriter_playing = false
+	_stop_typewriter()
 	if auto_advance_timer:
 		auto_advance_timer.stop()
 		auto_advance_timer.queue_free()
 		auto_advance_timer = null
 
 
-func _record_dialogue_history(display_name: String) -> void:
+func _record_dialogue_history(display_name: String, character_id: String = "") -> void:
 	if _current_line_recorded or not GameManager:
 		return
 	_current_line_recorded = true
 	GameManager.dialogue_history.append({
 		"character": display_name,
-		"text": _full_text
+		"text": _full_text,
+		"type": "dialogue",
+		"id": character_id
 	})
 
 
 # ================= 选项显示 =================
 func display_choices(choices: Array) -> void:
+	if GameManager.is_skip_mode:
+		skip_mode_paused_by_choice = true
+		GameManager.is_skip_mode = false
+		GameManager.skip_mode_changed.emit(false)
+		_stop_auto_timer()
 	_pause_auto_for_choices()
 	is_waiting_for_input = false
 	click_indicator.hide()
@@ -285,7 +321,11 @@ func display_choices(choices: Array) -> void:
 
 	for i in range(choice_buttons.size()):
 		if i < choices.size():
-			choice_buttons[i].text = choices[i].get("text", "")
+			var btn = choice_buttons[i]
+			var label = choice_labels[i]
+			if label:
+				label.text = choices[i].get("text", "")
+				label.add_theme_color_override("font_color", Color("#34859B"))
 			choice_buttons[i].disabled = false
 			choice_buttons[i].mouse_filter = Control.MOUSE_FILTER_STOP
 			choice_buttons[i].visible = true
@@ -313,19 +353,34 @@ func _pause_auto_for_choices() -> void:
 	GameManager.is_auto_mode = false
 	GameManager.auto_mode_changed.emit(false)
 	_stop_auto_timer()
-	if hud_instance:
-		var btn = hud_instance.get_node_or_null("AutoButton")
-		if btn:
-			btn.text = "自动: OFF"
-			btn.modulate = Color.WHITE
 
 
 # ================= 选项点击 =================
 func _on_choice_pressed(choice_id: int) -> void:
 	_record_choice(choice_id)
 	choice_panel.hide()
+	if skip_mode_paused_by_choice:
+		skip_mode_paused_by_choice = false
+		GameManager.is_skip_mode = true
+		GameManager.skip_mode_changed.emit(true)
 	choice_selected.emit(choice_id)
 	_restore_auto_after_choice()
+
+
+func _on_choice_mouse_entered(btn: TextureButton) -> void:
+	var idx = choice_buttons.find(btn)
+	if idx != -1 and idx < choice_labels.size():
+		var label = choice_labels[idx]
+		if label:
+			label.add_theme_color_override("font_color", Color("#B24F4F"))
+
+
+func _on_choice_mouse_exited(btn: TextureButton) -> void:
+	var idx = choice_buttons.find(btn)
+	if idx != -1 and idx < choice_labels.size():
+		var label = choice_labels[idx]
+		if label:
+			label.add_theme_color_override("font_color", Color("#34859B"))
 
 
 func _record_choice(choice_id: int) -> void:
@@ -337,7 +392,9 @@ func _record_choice(choice_id: int) -> void:
 	if choice_text != "":
 		GameManager.dialogue_history.append({
 			"character": "玩家",
-			"text": choice_text
+			"text": choice_text,
+			"type": "choice",
+			"id": ""
 		})
 
 
@@ -347,39 +404,100 @@ func _restore_auto_after_choice() -> void:
 	auto_mode_paused_by_choice = false
 	GameManager.is_auto_mode = true
 	GameManager.auto_mode_changed.emit(true)
-	if hud_instance:
-		var btn = hud_instance.get_node_or_null("AutoButton")
-		if btn:
-			btn.text = "自动: ON"
-			btn.modulate = Color.GREEN
 
 
-# ================= 自动模式核心 =================
+# ================= 自动模式与播放速度核心 =================
+func _on_typewriter_tick(total_chars: int, on_finished: Callable) -> void:
+	if not is_instance_valid(text_label):
+		_stop_typewriter()
+		return
+	
+	var current = text_label.visible_characters
+	if current < total_chars:
+		text_label.visible_characters = current + 1
+	else:
+		_stop_typewriter()
+		if on_finished.is_valid():
+			on_finished.call()
+
+
 func _on_auto_button_pressed() -> void:
 	GameManager.is_auto_mode = !GameManager.is_auto_mode
 	GameManager.auto_mode_changed.emit(GameManager.is_auto_mode)
 	auto_mode_paused_by_choice = false
 	_stop_auto_timer()
 
+	if GameManager.is_auto_mode:
+		if is_waiting_for_input:
+			_start_auto_timer()
+	else:
+		if not is_typewriter_playing and not is_waiting_for_input:
+			is_waiting_for_input = true
+			click_indicator.show()
+
+
+func _on_skip_button_pressed() -> void:
+	GameManager.is_skip_mode = !GameManager.is_skip_mode
+	GameManager.skip_mode_changed.emit(GameManager.is_skip_mode)
+	skip_mode_paused_by_choice = false
+
 	if hud_instance:
-		var btn = hud_instance.get_node_or_null("AutoButton")
+		var btn = hud_instance.get_node_or_null("TopBar/SkipButton")
 		if btn:
-			if GameManager.is_auto_mode:
-				btn.text = "自动: ON"
-				btn.modulate = Color.GREEN
-				if is_waiting_for_input:
-					_start_auto_timer()
-			else:
-				btn.text = "自动: OFF"
-				btn.modulate = Color.WHITE
-				if not is_typewriter_playing and not is_waiting_for_input:
-					is_waiting_for_input = true
-					click_indicator.show()
+			btn.modulate = Color.YELLOW if GameManager.is_skip_mode else Color.WHITE
+
+	if GameManager.is_skip_mode:
+		if long_dialogue_container.visible:
+			fullscreen_text.visible_characters = fullscreen_text.text.length()
+			if long_typewriter_tween and long_typewriter_tween.is_running():
+				long_typewriter_tween.kill()
+			if long_skip_timer:
+				long_skip_timer.stop()
+				long_skip_timer.queue_free()
+			long_skip_timer = Timer.new()
+			add_child(long_skip_timer)
+			long_skip_timer.one_shot = true
+			long_skip_timer.wait_time = 1.0
+			long_skip_timer.timeout.connect(_on_long_close_pressed)
+			long_skip_timer.start()
+		elif is_waiting_for_input:
+			_start_skip_advance_timer()
+	else:
+		_stop_skip_advance_timer()
+		if long_skip_timer:
+			long_skip_timer.stop()
+			long_skip_timer.queue_free()
+			long_skip_timer = null
+
+
+func _start_typewriter_timer(total_chars: int, speed: float, on_finished: Callable) -> void:
+	_stop_typewriter()
+	text_label.visible_characters = 1
+	typewriter_timer = Timer.new()
+	typewriter_timer.name = "TypewriterTimer"
+	add_child(typewriter_timer)
+	typewriter_timer.wait_time = speed
+	typewriter_timer.timeout.connect(_on_typewriter_tick.bind(total_chars, on_finished))
+	typewriter_timer.start()
+
+
+func _stop_typewriter() -> void:
+	if typewriter_timer:
+		typewriter_timer.stop()
+		typewriter_timer.queue_free()
+		typewriter_timer = null
+
+
+func update_text_speed(new_speed: float) -> void:
+	if typewriter_timer and not typewriter_timer.is_stopped():
+		typewriter_timer.wait_time = new_speed
+	if long_typewriter_timer and not long_typewriter_timer.is_stopped():
+		long_typewriter_timer.wait_time = new_speed
 
 
 func _start_auto_timer() -> void:
 	_stop_auto_timer()
-	if not GameManager.is_auto_mode:
+	if not GameManager.is_auto_mode and not GameManager.is_skip_mode:
 		return
 	auto_advance_timer = Timer.new()
 	add_child(auto_advance_timer)
@@ -387,6 +505,8 @@ func _start_auto_timer() -> void:
 	var auto_delay = GameManager.get_variable("auto_speed")
 	if auto_delay == null:
 		auto_delay = 2.0 / GameManager.auto_speed if GameManager.auto_speed > 0 else 2.0
+	if GameManager.is_skip_mode:
+		auto_delay /= 3.0
 	auto_advance_timer.wait_time = auto_delay
 	auto_advance_timer.timeout.connect(_on_auto_advance_timeout)
 	auto_advance_timer.start()
@@ -398,6 +518,30 @@ func _stop_auto_timer() -> void:
 		auto_advance_timer.stop()
 		auto_advance_timer.queue_free()
 		auto_advance_timer = null
+
+
+func _start_skip_advance_timer() -> void:
+	_stop_skip_advance_timer()
+	if not GameManager.is_skip_mode:
+		return
+	skip_advance_timer = Timer.new()
+	add_child(skip_advance_timer)
+	skip_advance_timer.one_shot = true
+	skip_advance_timer.wait_time = 0.3
+	skip_advance_timer.timeout.connect(func():
+		if is_waiting_for_input and GameManager.is_skip_mode:
+			is_waiting_for_input = false
+			click_indicator.hide()
+			continue_pressed.emit()
+	)
+	skip_advance_timer.start()
+
+
+func _stop_skip_advance_timer() -> void:
+	if skip_advance_timer:
+		skip_advance_timer.stop()
+		skip_advance_timer.queue_free()
+		skip_advance_timer = null
 
 
 func _on_auto_advance_timeout() -> void:
@@ -424,13 +568,15 @@ func _on_continue_clicked() -> void:
 	is_waiting_for_input = false
 	click_indicator.hide()
 	_stop_auto_timer()
+	if SFXManager and SFXManager.has_method("play_continue_sfx"):
+		SFXManager.play_continue_sfx()
 	continue_pressed.emit()
 
 
 # ================= HUD 按钮回调 =================
 func _on_affection_button_pressed() -> void: UIManager.open_panel("AffectionUI")
-func _on_save_button_pressed() -> void: _open_save_load("save")
-func _on_load_button_pressed() -> void: _open_save_load("load")
+func _on_save_button_pressed() -> void: UIManager.open_panel("SaveUI")
+func _on_load_button_pressed() -> void: UIManager.open_panel("LoadUI")
 func _on_backlog_button_pressed() -> void:
 	var panel = UIManager._panels.get("BacklogUI")
 	if panel and panel.has_method("refresh_history"):
@@ -439,21 +585,62 @@ func _on_backlog_button_pressed() -> void:
 
 func _on_quick_save_pressed() -> void:
 	SaveManager.auto_save_to_latest_slot()
-	show_save_hint()
+	
+func _on_quick_load_pressed() -> void:
+	if UIManager._current_panel != "":
+		UIManager.close_current_panel()
+	if get_tree().paused:
+		get_tree().paused = false
+	if long_dialogue_container.visible:
+		hide_long_dialogue()
+		if long_skip_timer:
+			long_skip_timer.stop()
+			long_skip_timer.queue_free()
+			long_skip_timer = null
+		long_dialogue_finished.emit()
 
-func _open_save_load(mode: String) -> void:
-	if save_load_ui_instance and save_load_ui_instance.has_method("set_mode"):
-		save_load_ui_instance.set_mode(mode)
-	UIManager.open_panel("SaveLoadUI")
+	var slot = SaveManager.get_latest_slot()
+	if SaveManager.has_save(slot):
+		SaveManager.load_game(slot)
+		print("[DialogueScene] 快速读档成功，槽位：%d" % slot)
+	else:
+		push_warning("[DialogueScene] 没有可用的存档。")
 
 
 # ================= 返回主界面流程 =================
 func _on_home_button_pressed() -> void:
-	if has_node("HomeConfirmDialog"):
-		get_node("HomeConfirmDialog").popup_centered()
+	var tip_panel = UIManager._panels.get("TipUI")
+	if not tip_panel:
 		return
-	_create_home_confirm_dialog()
-	get_node("HomeConfirmDialog").popup_centered()
+
+	tip_panel.show_tip("是否保存当前游戏进度？", "保存", "不保存", true)
+
+	if tip_panel.confirmed.is_connected(_on_home_save_confirmed):
+		tip_panel.confirmed.disconnect(_on_home_save_confirmed)
+	if tip_panel.canceled.is_connected(_on_home_cancel_confirmed):
+		tip_panel.canceled.disconnect(_on_home_cancel_confirmed)
+	if tip_panel.closed.is_connected(_on_home_tip_closed):
+		tip_panel.closed.disconnect(_on_home_tip_closed)
+
+	tip_panel.confirmed.connect(_on_home_save_confirmed, CONNECT_ONE_SHOT)
+	tip_panel.canceled.connect(_on_home_cancel_confirmed, CONNECT_ONE_SHOT)
+	tip_panel.closed.connect(_on_home_tip_closed, CONNECT_ONE_SHOT)
+
+	tip_panel.visible = true
+	if UIManager._return_button:
+		UIManager._return_button.visible = false
+	if UIManager._return_to_menu_button:
+		UIManager._return_to_menu_button.visible = false
+
+
+func _on_home_tip_closed() -> void:
+	var tip_panel = UIManager._panels.get("TipUI")
+	if tip_panel:
+		tip_panel.hide_tip()
+	if UIManager._return_button:
+		UIManager._return_button.visible = false
+	if UIManager._return_to_menu_button:
+		UIManager._return_to_menu_button.visible = false
 
 
 func _create_home_confirm_dialog() -> void:
@@ -501,10 +688,15 @@ func _create_home_confirm_dialog() -> void:
 func _on_home_save_confirmed() -> void:
 	SaveManager.auto_save_to_latest_slot()
 	await get_tree().create_timer(0.5).timeout
+	var tip_panel = UIManager._panels.get("TipUI")
+	if tip_panel:
+		tip_panel.hide_tip()
 	_return_to_main_menu()
 
-
 func _on_home_cancel_confirmed() -> void:
+	var tip_panel = UIManager._panels.get("TipUI")
+	if tip_panel:
+		tip_panel.hide_tip()
 	_return_to_main_menu()
 
 
@@ -517,6 +709,54 @@ func _on_return_to_menu_pressed() -> void:
 		get_tree().paused = false
 	clean_up_all_ui()
 	_return_to_main_menu()
+
+
+func _on_fullscreen_text_clicked(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed:
+		hide_long_dialogue()
+		long_dialogue_finished.emit()
+
+
+func _on_long_typewriter_tick(total_chars: int) -> void:
+	if not is_instance_valid(fullscreen_text):
+		_stop_long_typewriter()
+		return
+	var current = fullscreen_text.visible_characters
+	if current < total_chars:
+		fullscreen_text.visible_characters = current + 1
+	else:
+		_stop_long_typewriter()
+		
+		
+func _on_long_close_pressed() -> void:
+	hide_long_dialogue()
+	if long_skip_timer:
+		long_skip_timer.stop()
+		long_skip_timer.queue_free()
+		long_skip_timer = null
+	CharacterManager.show_all_characters()
+	
+	dialogue_box.visible = true
+	text_label.visible = true
+	character_name_rect.visible = true
+	character_name_rect.modulate.a = 1.0
+	dialogue_box.modulate.a = 1.0
+	text_label.modulate.a = 1.0
+	
+	is_waiting_for_input = true
+	click_indicator.visible = true
+	click_indicator.modulate.a = 1.0
+	
+	var long_text = fullscreen_text.text
+	if long_text != "":
+		GameManager.dialogue_history.append({
+			"character": "",
+			"text": long_text,
+			"type": "long_dialogue",
+			"id": ""
+		})
+	
+	long_dialogue_finished.emit()
 
 
 func _return_to_main_menu() -> void:
@@ -532,15 +772,28 @@ func _return_to_main_menu() -> void:
 
 # ================= 存档与读档 UI =================
 func _open_load_panel_on_continue() -> void:
-	if save_load_ui_instance and save_load_ui_instance.has_method("set_mode"):
-		save_load_ui_instance.set_mode("load")
-	UIManager.open_panel("SaveLoadUI")
+	UIManager.open_panel("LoadUI")
 	UIManager.show_return_to_menu_button()
+	SaveManager.continue_mode = true
 
 
 func _open_settings_from_menu() -> void:
 	UIManager.open_panel("SettingsUI")
 	UIManager.show_return_to_menu_button()
+
+
+func _open_gallery_from_menu() -> void:
+	UIManager.open_panel("GalleryUI")
+	UIManager.show_return_to_menu_button()
+	UIManager.panel_closed.connect(_on_gallery_closed_from_menu, CONNECT_ONE_SHOT)
+	
+
+func _on_gallery_closed_from_menu(panel_name: String) -> void:
+	if panel_name == "GalleryUI":
+		if get_tree().paused:
+			get_tree().paused = false
+		GameManager.open_gallery_on_load = false
+		_return_to_main_menu()
 
 
 # ================= 面板回调 =================
@@ -586,9 +839,82 @@ func restore_dialogue_state(data: Dictionary) -> void:
 		character_name_rect.visible = true
 		character_name_rect.modulate.a = 1.0
 	click_indicator.visible = true
+	
+
+# ================= 长对话 =================
+func show_long_dialogue(text: String) -> void:
+	fullscreen_text.text = text
+	long_dialogue_container.visible = true
+	long_close_btn.visible = true
+
+	if long_typewriter_tween and long_typewriter_tween.is_running():
+		long_typewriter_tween.kill()
+
+	var total_chars = text.length()
+
+	if GameManager.is_skip_mode:
+		fullscreen_text.visible_characters = total_chars
+		if long_skip_timer:
+			long_skip_timer.stop()
+			long_skip_timer.queue_free()
+		long_skip_timer = Timer.new()
+		add_child(long_skip_timer)
+		long_skip_timer.one_shot = true
+		long_skip_timer.wait_time = 1.0
+		long_skip_timer.timeout.connect(_on_long_close_pressed)
+		long_skip_timer.start()
+	else:
+		fullscreen_text.visible_characters = 0
+		var speed = GameManager.text_speed
+		_start_long_typewriter_timer(total_chars, speed)
+
+
+func _start_long_typewriter_timer(total_chars: int, speed: float) -> void:
+	_stop_long_typewriter()
+	fullscreen_text.visible_characters = 1
+	long_typewriter_timer = Timer.new()
+	long_typewriter_timer.name = "LongTypewriterTimer"
+	add_child(long_typewriter_timer)
+	long_typewriter_timer.wait_time = speed
+	long_typewriter_timer.timeout.connect(_on_long_typewriter_tick.bind(total_chars))
+	long_typewriter_timer.start()
+	
+
+func _stop_long_typewriter() -> void:
+	if long_typewriter_timer:
+		long_typewriter_timer.stop()
+		long_typewriter_timer.queue_free()
+		long_typewriter_timer = null
+
+
+func hide_long_dialogue() -> void:
+	long_dialogue_container.visible = false
+	if long_typewriter_tween and long_typewriter_tween.is_running():
+		long_typewriter_tween.kill()
+	_stop_long_typewriter()
+	if long_skip_timer:
+		long_skip_timer.stop()
+		long_skip_timer.queue_free()
+		long_skip_timer = null
 
 
 # ================= UI 截图与清理 =================
+func _set_return_buttons_visible(visible: bool) -> void:
+	if visible:
+		if SaveManager.continue_mode:
+			UIManager.show_return_to_menu_button()
+		else:
+			if UIManager._return_button:
+				UIManager._return_button.visible = true
+			if UIManager._return_to_menu_button:
+				UIManager._return_to_menu_button.visible = false
+	else:
+		if UIManager._return_button:
+			UIManager._return_button.visible = false
+		if UIManager._return_to_menu_button:
+			UIManager._return_to_menu_button.visible = false
+			
+			
 func hide_all_ui_for_screenshot() -> void:
 	if hud_instance:
 		hud_instance.visible = false
@@ -604,9 +930,6 @@ func clean_up_all_ui() -> void:
 	if hud_instance and is_instance_valid(hud_instance):
 		hud_instance.queue_free()
 		hud_instance = null
-	if save_load_ui_instance and is_instance_valid(save_load_ui_instance):
-		save_load_ui_instance.queue_free()
-		save_load_ui_instance = null
 	if has_node("/root/GameManager"):
 		var gm = get_node("/root/GameManager")
 		if gm.affection_ui_instance and is_instance_valid(gm.affection_ui_instance):
@@ -617,17 +940,3 @@ func clean_up_all_ui() -> void:
 		if is_instance_valid(dialog):
 			dialog.queue_free()
 	print("[DialogueScene] 动态UI清理完成。")
-
-
-func show_save_hint() -> void:
-	if not save_hint_label:
-		return
-	if save_hint_tween and save_hint_tween.is_valid():
-		save_hint_tween.kill()
-	save_hint_label.text = "✅ 已保存"
-	save_hint_label.modulate.a = 1.0
-	save_hint_label.visible = true
-	save_hint_tween = create_tween()
-	save_hint_tween.tween_interval(1.5)
-	save_hint_tween.tween_property(save_hint_label, "modulate:a", 0.0, 0.5)
-	save_hint_tween.tween_callback(func(): save_hint_label.visible = false)

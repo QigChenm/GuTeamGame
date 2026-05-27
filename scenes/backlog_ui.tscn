@@ -1,59 +1,108 @@
 [gd_scene format=3 uid="uid://yq5eejig47k4"]
 
 [ext_resource type="Script" uid="uid://h62vwpi4q4sx" path="res://scripts/scenes/backlog_ui.gd" id="1_08dv8"]
-[ext_resource type="FontFile" uid="uid://dnb6jjvxuy0x7" path="res://assets/fonts/SIMYOU.TTF" id="2_it3nq"]
+[ext_resource type="Texture2D" uid="uid://cwawpnhff5jt" path="res://assets/ui/universal/通用_界面标题_对话历史_llf.png" id="2_21doy"]
+[ext_resource type="Texture2D" uid="uid://dt71gfuri6xii" path="res://assets/ui/universal/通用_界面背景_llf.png" id="2_mbgkq"]
+[ext_resource type="Texture2D" uid="uid://b7grcdourqbc3" path="res://assets/ui/log/历史_头像框_llf.png" id="4_l41xu"]
+[ext_resource type="FontFile" uid="uid://cv4m0rys7x10i" path="res://assets/fonts/ChillRoundGothic_Bold.ttf" id="5_pnwbg"]
 
 [node name="BacklogUI" type="CanvasLayer" unique_id=15337538]
 process_mode = 3
 layer = 128
 script = ExtResource("1_08dv8")
 
-[node name="Background" type="ColorRect" parent="." unique_id=1313935338]
+[node name="Background" type="TextureRect" parent="." unique_id=2038540244]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(1, 1, 1, 0.5019608)
+texture = ExtResource("2_mbgkq")
 
-[node name="Panel" type="Panel" parent="." unique_id=433046305]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=989380841]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TitleLabel" type="Label" parent="Panel/VBoxContainer" unique_id=748790186]
+[node name="Title" type="TextureRect" parent="." unique_id=1330959990]
 custom_minimum_size = Vector2(0, 90)
-layout_mode = 2
-size_flags_vertical = 1
-theme_override_fonts/font = ExtResource("2_it3nq")
-theme_override_font_sizes/font_size = 50
-text = "历史记录"
-horizontal_alignment = 1
-vertical_alignment = 1
+offset_left = 797.0
+offset_top = 30.0
+offset_right = 1122.0
+offset_bottom = 160.0
+size_flags_horizontal = 4
+texture = ExtResource("2_21doy")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer" unique_id=1482037570]
-layout_mode = 2
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1482037570]
+offset_left = 247.0
+offset_top = 168.0
+offset_right = 1683.0
+offset_bottom = 1080.0
 size_flags_vertical = 3
+theme_override_constants/scrollbar_v_separation = 10
 
-[node name="HistoryText" type="RichTextLabel" parent="Panel/VBoxContainer/ScrollContainer" unique_id=1954264805]
+[node name="RichTextLabel" type="RichTextLabel" parent="ScrollContainer" unique_id=435973103]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_fonts/normal_font = ExtResource("2_it3nq")
-theme_override_fonts/bold_font = ExtResource("2_it3nq")
-theme_override_fonts/bold_italics_font = ExtResource("2_it3nq")
-theme_override_fonts/italics_font = ExtResource("2_it3nq")
-theme_override_fonts/mono_font = ExtResource("2_it3nq")
+theme_override_colors/default_color = Color(0.8980392, 0.4509804, 0.4509804, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/normal_font = ExtResource("5_pnwbg")
+theme_override_fonts/bold_font = ExtResource("5_pnwbg")
+theme_override_fonts/bold_italics_font = ExtResource("5_pnwbg")
+theme_override_fonts/italics_font = ExtResource("5_pnwbg")
+theme_override_fonts/mono_font = ExtResource("5_pnwbg")
+theme_override_font_sizes/normal_font_size = 27
+theme_override_font_sizes/bold_font_size = 27
+theme_override_font_sizes/bold_italics_font_size = 27
+theme_override_font_sizes/italics_font_size = 27
+theme_override_font_sizes/mono_font_size = 27
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer" unique_id=1693714841]
+visible = false
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PortraitBg" type="TextureRect" parent="ScrollContainer/HBoxContainer" unique_id=717491282]
+layout_mode = 2
+texture = ExtResource("4_l41xu")
+
+[node name="Portrait" type="TextureRect" parent="ScrollContainer/HBoxContainer/PortraitBg" unique_id=1378495141]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 94.0
+offset_bottom = 94.0
+
+[node name="DisplayName" type="Label" parent="ScrollContainer/HBoxContainer" unique_id=347768079]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.8980392, 0.4509804, 0.4509804, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("5_pnwbg")
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HistoryText" type="RichTextLabel" parent="ScrollContainer/HBoxContainer" unique_id=1954264805]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
+theme_override_colors/default_color = Color(0.20392157, 0.52156866, 0.60784316, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/line_separation = 5
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("5_pnwbg")
+theme_override_fonts/bold_font = ExtResource("5_pnwbg")
+theme_override_fonts/bold_italics_font = ExtResource("5_pnwbg")
+theme_override_fonts/italics_font = ExtResource("5_pnwbg")
+theme_override_fonts/mono_font = ExtResource("5_pnwbg")
+theme_override_font_sizes/normal_font_size = 28
+theme_override_font_sizes/bold_font_size = 28
+theme_override_font_sizes/bold_italics_font_size = 28
+theme_override_font_sizes/italics_font_size = 28
+theme_override_font_sizes/mono_font_size = 28
 bbcode_enabled = true

@@ -1,138 +1,81 @@
 [gd_scene format=3 uid="uid://baf3d187oqbi2"]
 
-[ext_resource type="FontFile" uid="uid://dnb6jjvxuy0x7" path="res://assets/fonts/SIMYOU.TTF" id="1_oo0fn"]
+[ext_resource type="Texture2D" uid="uid://b8ejnkjogdke8" path="res://assets/ui/universal/通用_关闭界面_默认_llf.png" id="1_3xg78"]
+[ext_resource type="Texture2D" uid="uid://bhnvw0h4idj1n" path="res://assets/ui/universal/通用_关闭界面_焦点_llf.png" id="2_48y67"]
 [ext_resource type="PackedScene" uid="uid://y617hnc071ka" path="res://scenes/affection_ui.tscn" id="2_oo0fn"]
-[ext_resource type="PackedScene" uid="uid://n2gknpiqfpli" path="res://scenes/save_load_ui.tscn" id="3_5ysmq"]
+[ext_resource type="Texture2D" uid="uid://d08de3crxyo3o" path="res://assets/ui/universal/通用_标题界面_默认_llf.png" id="3_084dp"]
 [ext_resource type="PackedScene" uid="uid://dguoqssy0r4x5" path="res://scenes/settings_ui.tscn" id="4_6fi6k"]
+[ext_resource type="Texture2D" uid="uid://byrk324i6sik2" path="res://assets/ui/universal/通用_标题界面_焦点_llf.png" id="4_y2nlu"]
 [ext_resource type="PackedScene" uid="uid://yq5eejig47k4" path="res://scenes/backlog_ui.tscn" id="5_uo2fv"]
 [ext_resource type="PackedScene" uid="uid://br1torcq2e8fl" path="res://scenes/gallery_ui.tscn" id="6_047uy"]
+[ext_resource type="Texture2D" uid="uid://dlx8052d7i4hh" path="res://assets/ui/dialogue/对话_快速存档_默认_llf.png" id="7_5357l"]
+[ext_resource type="Texture2D" uid="uid://ce64su05xufou" path="res://assets/ui/dialogue/对话_快速存档_焦点_llf.png" id="8_iypfu"]
+[ext_resource type="Texture2D" uid="uid://y3xvoddbt2bs" path="res://assets/ui/dialogue/对话_自动_默认_llf.png" id="9_3xg78"]
+[ext_resource type="Texture2D" uid="uid://ko6xltyjw2sv" path="res://assets/ui/dialogue/对话_历史_默认_llf.png" id="9_qpprf"]
+[ext_resource type="Texture2D" uid="uid://djltwev8fpl2q" path="res://assets/ui/dialogue/对话_历史_焦点_llf.png" id="10_3xg78"]
+[ext_resource type="Texture2D" uid="uid://c1rlid5w27dda" path="res://assets/ui/dialogue/对话_自动_焦点_llf.png" id="10_48y67"]
+[ext_resource type="Texture2D" uid="uid://clr0ujdm1vrs3" path="res://assets/ui/dialogue/对话_存档_默认_llf.png" id="11_48y67"]
+[ext_resource type="PackedScene" uid="uid://c67c1sqygbtuv" path="res://scenes/tip_ui.tscn" id="11_of3ib"]
+[ext_resource type="Texture2D" uid="uid://df74ggqs7hv2k" path="res://assets/ui/dialogue/对话_存档_焦点_llf.png" id="12_084dp"]
+[ext_resource type="Texture2D" uid="uid://c4mucubco0sup" path="res://assets/ui/dialogue/对话_快速读档_默认_llf.png" id="12_mgfyp"]
+[ext_resource type="Texture2D" uid="uid://dakwsihua2w2m" path="res://assets/ui/dialogue/对话_快速读档_焦点_llf.png" id="13_ptr5m"]
+[ext_resource type="Texture2D" uid="uid://bj5wkt0mlf3kx" path="res://assets/ui/dialogue/对话_读档_默认_llf.png" id="13_y2nlu"]
+[ext_resource type="Texture2D" uid="uid://53e476tn1etm" path="res://assets/ui/dialogue/对话_读档_焦点_llf.png" id="14_kp442"]
+[ext_resource type="Texture2D" uid="uid://dwupg312riffp" path="res://assets/ui/dialogue/对话_设置_默认_llf.png" id="15_gltyx"]
+[ext_resource type="Texture2D" uid="uid://dt5e4hoeoaetb" path="res://assets/ui/dialogue/对话_设置_焦点 (2)_llf.png" id="16_mgfyp"]
+[ext_resource type="Texture2D" uid="uid://dt4ssdt3odwly" path="res://assets/ui/dialogue/对话_快进_默认_llf.png" id="16_of3ib"]
+[ext_resource type="Texture2D" uid="uid://cnmaoeiuxo4sb" path="res://assets/ui/dialogue/对话_快进_焦点_llf.png" id="17_7600b"]
+[ext_resource type="Texture2D" uid="uid://cbu3pksqhwyb6" path="res://assets/ui/dialogue/对话_退出_默认_llf.png" id="17_ptr5m"]
+[ext_resource type="Texture2D" uid="uid://b8kd2gujgxc5a" path="res://assets/ui/dialogue/对话_退出_焦点_llf.png" id="18_of3ib"]
+[ext_resource type="PackedScene" uid="uid://cu5hx7fq1xxyc" path="res://scenes/save_ui.tscn" id="27_ptr5m"]
+[ext_resource type="PackedScene" uid="uid://d3j515d24jafp" path="res://scenes/load_ui.tscn" id="28_of3ib"]
 
 [node name="HUD" type="CanvasLayer" unique_id=82451320]
 process_mode = 3
 layer = 1024
 
-[node name="HomeButton" type="Button" parent="." unique_id=1992221237]
-offset_left = 25.0
-offset_top = 11.0
-offset_right = 170.0
-offset_bottom = 73.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("1_oo0fn")
-theme_override_font_sizes/font_size = 25
-text = "主界面"
+[node name="ReturnToMenuButton" type="TextureButton" parent="." unique_id=1426135324]
+visible = false
+offset_left = 1681.0
+offset_top = 53.0
+offset_right = 1861.0
+offset_bottom = 116.0
+size_flags_horizontal = 3
+texture_normal = ExtResource("3_084dp")
+texture_pressed = ExtResource("4_y2nlu")
+texture_hover = ExtResource("4_y2nlu")
 
-[node name="BacklogButton" type="Button" parent="." unique_id=1918203952]
-offset_left = 187.0
-offset_top = 11.0
-offset_right = 344.0
-offset_bottom = 73.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("1_oo0fn")
-theme_override_font_sizes/font_size = 25
-text = "历史记录"
-
-[node name="QuickSaveButton" type="Button" parent="." unique_id=1571171151]
-offset_left = 360.0
-offset_top = 11.0
-offset_right = 517.0
-offset_bottom = 73.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("1_oo0fn")
-theme_override_font_sizes/font_size = 25
-text = "一键存档"
-
-[node name="GalleryButton" type="Button" parent="." unique_id=1057649800]
-offset_left = 532.0
-offset_top = 11.0
-offset_right = 622.0
-offset_bottom = 73.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("1_oo0fn")
-theme_override_font_sizes/font_size = 25
-text = "收藏"
-
-[node name="AutoButton" type="Button" parent="." unique_id=1063779598]
-offset_left = 637.0
-offset_top = 11.0
-offset_right = 746.0
-offset_bottom = 73.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("1_oo0fn")
-theme_override_font_sizes/font_size = 25
-text = "自动:OFF"
+[node name="ReturnButton" type="TextureButton" parent="." unique_id=356656738]
+process_mode = 3
+visible = false
+offset_left = 1798.0
+offset_top = 55.0
+offset_right = 1858.0
+offset_bottom = 118.0
+texture_normal = ExtResource("1_3xg78")
+texture_pressed = ExtResource("2_48y67")
+texture_hover = ExtResource("2_48y67")
 
 [node name="TopBar" type="HBoxContainer" parent="." unique_id=626219355]
+visible = false
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -614.0
-offset_top = 9.0
-offset_right = -10.0
-offset_bottom = 72.0
+offset_left = -647.0
+offset_top = 36.0
+offset_right = -43.0
+offset_bottom = 99.0
 grow_horizontal = 0
 theme_override_constants/separation = 6
+alignment = 2
 
-[node name="ReturnToMenuButton" type="Button" parent="TopBar" unique_id=663643514]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("1_oo0fn")
-theme_override_font_sizes/font_size = 25
-text = "返回主界面"
-
-[node name="ReturnButton" type="Button" parent="TopBar" unique_id=1971657930]
-process_mode = 3
+[node name="AffectionButton" type="TextureButton" parent="TopBar" unique_id=1910582159]
 visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("1_oo0fn")
-theme_override_font_sizes/font_size = 25
-text = "返回"
-
-[node name="AffectionButton" type="Button" parent="TopBar" unique_id=1875275028]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("1_oo0fn")
-theme_override_font_sizes/font_size = 25
-text = "好感度"
-
-[node name="SettingsButton" type="Button" parent="TopBar" unique_id=1489277226]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("1_oo0fn")
-theme_override_font_sizes/font_size = 25
-text = "设置"
-
-[node name="SaveButton" type="Button" parent="TopBar" unique_id=1132275066]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("1_oo0fn")
-theme_override_font_sizes/font_size = 25
-text = "保存"
-
-[node name="LoadButton" type="Button" parent="TopBar" unique_id=1421820891]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("1_oo0fn")
-theme_override_font_sizes/font_size = 25
-text = "读取"
 
 [node name="AffectionPanel" parent="." unique_id=318039446 instance=ExtResource("2_oo0fn")]
-visible = false
-
-[node name="SaveLoadUI" parent="." unique_id=1280064147 instance=ExtResource("3_5ysmq")]
-process_mode = 3
 visible = false
 
 [node name="SettingsUI" parent="." unique_id=2070996895 instance=ExtResource("4_6fi6k")]
@@ -142,3 +85,85 @@ visible = false
 visible = false
 
 [node name="GalleryUI" parent="." unique_id=293602058 instance=ExtResource("6_047uy")]
+visible = false
+
+[node name="SaveUI" parent="." unique_id=1660400489 instance=ExtResource("27_ptr5m")]
+layer = 128
+visible = false
+
+[node name="LoadUI" parent="." unique_id=278826078 instance=ExtResource("28_of3ib")]
+layer = 128
+visible = false
+
+[node name="TipUI" parent="." unique_id=1705226357 instance=ExtResource("11_of3ib")]
+visible = false
+
+[node name="QuickSaveButton" type="TextureButton" parent="." unique_id=136308939]
+offset_left = 1429.0
+offset_top = 1021.0
+offset_right = 1519.0
+offset_bottom = 1072.0
+texture_normal = ExtResource("7_5357l")
+texture_pressed = ExtResource("8_iypfu")
+texture_hover = ExtResource("8_iypfu")
+
+[node name="QuickLoadButton" type="TextureButton" parent="." unique_id=1348269440]
+offset_left = 1321.0
+offset_top = 1022.0
+offset_right = 1411.0
+offset_bottom = 1073.0
+texture_normal = ExtResource("12_mgfyp")
+texture_pressed = ExtResource("13_ptr5m")
+texture_hover = ExtResource("13_ptr5m")
+
+[node name="ButtonBar" type="HBoxContainer" parent="." unique_id=215079751]
+offset_left = 1543.0
+offset_top = 1026.0
+offset_right = 1877.0
+offset_bottom = 1077.0
+theme_override_constants/separation = 25
+alignment = 2
+
+[node name="AutoButton" type="TextureButton" parent="ButtonBar" unique_id=1278542442]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("9_3xg78")
+texture_pressed = ExtResource("10_48y67")
+
+[node name="SkipButton" type="TextureButton" parent="ButtonBar" unique_id=1545467317]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("16_of3ib")
+texture_pressed = ExtResource("17_7600b")
+
+[node name="BacklogButton" type="TextureButton" parent="ButtonBar" unique_id=256636874]
+layout_mode = 2
+texture_normal = ExtResource("9_qpprf")
+texture_pressed = ExtResource("10_3xg78")
+texture_hover = ExtResource("10_3xg78")
+
+[node name="SaveButton" type="TextureButton" parent="ButtonBar" unique_id=327612035]
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("11_48y67")
+texture_pressed = ExtResource("12_084dp")
+texture_hover = ExtResource("12_084dp")
+
+[node name="LoadButton" type="TextureButton" parent="ButtonBar" unique_id=752247770]
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("13_y2nlu")
+texture_pressed = ExtResource("14_kp442")
+texture_hover = ExtResource("14_kp442")
+
+[node name="SettingsButton" type="TextureButton" parent="ButtonBar" unique_id=1936966017]
+layout_mode = 2
+texture_normal = ExtResource("15_gltyx")
+texture_pressed = ExtResource("16_mgfyp")
+texture_hover = ExtResource("16_mgfyp")
+
+[node name="HomeButton" type="TextureButton" parent="ButtonBar" unique_id=539077259]
+layout_mode = 2
+texture_normal = ExtResource("17_ptr5m")
+texture_pressed = ExtResource("18_of3ib")
+texture_hover = ExtResource("18_of3ib")

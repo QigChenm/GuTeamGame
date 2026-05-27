@@ -231,12 +231,16 @@ func _check_cg_complete() -> void:
 
 
 func _start_auto_skip_if_needed() -> void:
-	if GameManager.is_auto_mode:
-		_cancel_auto_skip()
+	_cancel_auto_skip()
+	
+	if GameManager.is_auto_mode or GameManager.is_skip_mode:
 		auto_skip_timer = Timer.new()
 		add_child(auto_skip_timer)
 		auto_skip_timer.one_shot = true
-		auto_skip_timer.wait_time = MIN_CG_DURATION
+		if GameManager.is_skip_mode:
+			auto_skip_timer.wait_time = 1.0
+		else:
+			auto_skip_timer.wait_time = MIN_CG_DURATION
 		auto_skip_timer.timeout.connect(_auto_skip_cg)
 		auto_skip_timer.start()
 
