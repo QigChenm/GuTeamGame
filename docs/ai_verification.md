@@ -1,30 +1,38 @@
-# AI Verification
+# AI 验证说明
 
-This project connects `AIManager` directly to Kimi through the Moonshot OpenAI-compatible chat completions API.
+本项目通过 Moonshot 的 OpenAI 兼容 Chat Completions API，让 `AIManager` 直接连接 Kimi。
 
-## Environment
+## 环境配置
 
-Set these variables before launching Godot:
+启动 Godot 前，可以先设置系统环境变量：
 
 ```powershell
-$env:MOONSHOT_API_KEY="your_real_api_key"
+$env:MOONSHOT_API_KEY="你的真实 API Key"
 $env:MOONSHOT_BASE_URL="https://api.moonshot.cn/v1"
 $env:MOONSHOT_MODEL="kimi-k2.6"
 ```
 
-Do not commit real API keys.
+也可以在项目根目录创建本地 `.env` 文件。如果 `.env` 不存在，`AIManager` 也会读取名为 `env` 的文件。
 
-## Manual Flow
+```env
+MOONSHOT_API_KEY=你的真实 API Key
+MOONSHOT_BASE_URL=https://api.moonshot.cn/v1
+MOONSHOT_MODEL=kimi-k2.6
+```
 
-1. Open the project with Godot 4.6.2.
-2. Start the game and click "New Game".
-3. Confirm the first AI response drives the scene through `commands`.
-4. Temporarily unset `MOONSHOT_API_KEY` and start again.
-5. Confirm the game shows the fallback dialogue instead of crashing or freezing.
+不要提交真实 API Key。
 
-## Static Checks
+## 手动验证流程
 
-Run these before committing future AI changes:
+1. 使用 Godot 4.6.2 打开项目。
+2. 启动游戏并点击“New Game”。
+3. 确认第一次 AI 响应会通过 `commands` 驱动场景。
+4. 临时清空 `MOONSHOT_API_KEY` 后再次启动。
+5. 确认游戏会显示兜底对话，而不是崩溃或卡死。
+
+## 静态检查
+
+以后提交 AI 相关改动前，建议运行：
 
 ```powershell
 git diff -- scripts/managers/script_engine.gd scripts/managers/dialogue_manager.gd
@@ -32,4 +40,4 @@ Select-String -Path env.example -Pattern "your_api_key_here"
 Select-String -Path scripts/managers/ai_manager.gd -Pattern "CharacterManager|BackgroundManager|AudioManager|ParticleManager|CGManager|UIManager|GameManager"
 ```
 
-If Godot is available in `PATH`, also run the project's normal headless import or script check command for the installed Godot version.
+如果 Godot 已加入 `PATH`，也可以运行当前 Godot 版本对应的无头导入或脚本检查命令。

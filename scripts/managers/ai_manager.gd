@@ -6,13 +6,18 @@ extends Node
 @export var base_url: String = "https://api.moonshot.cn/v1"
 @export var model: String = "kimi-k2.6"
 @export var request_timeout: float = 30.0
+@export var env_file_path: String = "res://.env"
 
 var _http_request: HTTPRequest = null
 var _is_requesting: bool = false
+var _env_values: Dictionary = {}
 
 const _FALLBACK_TEXT := "AI 暂时不可用，请稍后再试。"
+const _FALLBACK_ENV_FILE_PATH := "res://env"
 
 func _ready() -> void:
+	_load_env_file()
+
 	_http_request = HTTPRequest.new()
 	_http_request.timeout = request_timeout
 	_http_request.request_completed.connect(_on_request_completed)
@@ -35,7 +40,7 @@ func send_message(input_str: String, _callback: Callable = Callable()) -> void:
 		_finish_requesting()
 		return
 
-	var api_key := OS.get_environment("MOONSHOT_API_KEY")
+	var api_key := _get_env_value("MOONSHOT_API_KEY")
 	if api_key == "":
 		push_warning("[AIManager] 未设置 MOONSHOT_API_KEY，无法请求 Kimi。")
 		_recover_with_dialogue("[AIManager] 缺少 MOONSHOT_API_KEY。")
@@ -135,17 +140,65 @@ func _on_request_completed(result: int, response_code: int, _headers: PackedStri
 
 
 func _get_base_url() -> String:
-	var env_base_url := OS.get_environment("MOONSHOT_BASE_URL")
+	var env_base_url := _get_env_value("MOONSHOT_BASE_URL")
 	if env_base_url != "":
 		return env_base_url
 	return base_url
 
 
 func _get_model() -> String:
-	var env_model := OS.get_environment("MOONSHOT_MODEL")
+	var env_model := _get_env_value("MOONSHOT_MODEL")
 	if env_model != "":
 		return env_model
 	return model
+
+
+func _get_env_value(key: String) -> String:
+	var system_value := OS.get_environment(key)
+	if system_value != "":
+		return system_value
+	return str(_env_values.get(key, ""))
+
+
+func _load_env_file() -> void:
+	_env_values.clear()
+	var path := env_file_path
+	if not FileAccess.file_exists(path) and FileAccess.file_exists(_FALLBACK_ENV_FILE_PATH):
+		path = _FALLBACK_ENV_FILE_PATH
+	if not FileAccess.file_exists(path):
+		return
+
+	var file := FileAccess.open(path, FileAccess.READ)
+	if file == null:
+		push_warning("[AIManager] 无法读取 env 文件: %s" % path)
+		return
+
+	while not file.eof_reached():
+		var line := file.get_line().strip_edges()
+		if line == "" or line.begins_with("#"):
+			continue
+		if line.begins_with("export "):
+			line = line.trim_prefix("export ").strip_edges()
+
+		var separator_index := line.find("=")
+		if separator_index <= 0:
+			continue
+
+		var key := line.substr(0, separator_index).strip_edges()
+		var value := line.substr(separator_index + 1).strip_edges()
+		value = _strip_env_quotes(value)
+		if key != "":
+			_env_values[key] = value
+
+
+func _strip_env_quotes(value: String) -> String:
+	if value.length() < 2:
+		return value
+	var starts_with_single_quote := value.begins_with("'") and value.ends_with("'")
+	var starts_with_double_quote := value.begins_with("\"") and value.ends_with("\"")
+	if starts_with_single_quote or starts_with_double_quote:
+		return value.substr(1, value.length() - 2)
+	return value
 
 
 func _finish_requesting() -> void:
