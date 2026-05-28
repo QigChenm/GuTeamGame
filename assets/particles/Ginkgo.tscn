@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://c2hrkiql66hsq"]
+
+[ext_resource type="Texture2D" uid="uid://chu4h2fywwfw5" path="res://assets/ui/particles/ginkgo.png" id="1_xx7rj"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_s0xpk"]
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6dcjq"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(0.5, 1.2, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1920, 10, 1)
+angle_min = -179.99998
+angle_max = 180.00002
+direction = Vector3(0, 1, 0)
+spread = 30.0
+angular_velocity_min = -90.000015
+angular_velocity_max = 89.999985
+gravity = Vector3(0, 50, 0)
+linear_accel_min = 1.3099977
+linear_accel_max = 16.639997
+radial_accel_min = -32.79
+radial_accel_max = 26.469997
+
+[node name="Ginkgo" type="GPUParticles2D" unique_id=1602428741]
+material = SubResource("CanvasItemMaterial_s0xpk")
+position = Vector2(961, -18)
+amount = 100
+texture = ExtResource("1_xx7rj")
+lifetime = 20.0
+process_material = SubResource("ParticleProcessMaterial_6dcjq")
+
+[node name="SunLight" type="PointLight2D" parent="." unique_id=451044652]
+position = Vector2(-4, -251)
+color = Color(1, 0.8745098, 0.627451, 1)
+energy = 0.6
+texture_scale = 2.0

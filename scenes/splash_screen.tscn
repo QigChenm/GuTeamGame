@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://bl0x60ry2c2mp"]
+
+[ext_resource type="Script" uid="uid://qtyp5y14iurb" path="res://scripts/scenes/splash_screen.gd" id="1_4gp4q"]
+[ext_resource type="Texture2D" uid="uid://dxc3l7yg0oery" path="res://assets/Logo.png" id="2_3mj2l"]
+[ext_resource type="FontFile" uid="uid://cv4m0rys7x10i" path="res://assets/fonts/ChillRoundGothic_Bold.ttf" id="3_vbcv6"]
+[ext_resource type="AudioStream" uid="uid://84f003oaw3xj" path="res://assets/audio/sfx/bgshift.mp3" id="4_3mj2l"]
+[ext_resource type="Texture2D" uid="uid://blfwk7a5pe8cq" path="res://assets/TitleLogo.png" id="4_vbcv6"]
+
+[node name="SplashScreen" type="Control" unique_id=1087767756]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4gp4q")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=901475582]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="LogoContainer" type="HBoxContainer" parent="." unique_id=1071041765]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -177.5
+offset_top = -175.0
+offset_right = 177.5
+offset_bottom = 175.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LogoImage" type="TextureRect" parent="LogoContainer" unique_id=1497420404]
+layout_mode = 2
+texture = ExtResource("2_3mj2l")
+stretch_mode = 2
+
+[node name="TeamNameLabel" type="Label" parent="LogoContainer" unique_id=876750915]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_vbcv6")
+theme_override_font_sizes/font_size = 120
+text = "GuTeamGame"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TitleLabel" type="TextureRect" parent="." unique_id=1677289849]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -313.0
+offset_top = -277.0
+offset_right = 287.0
+offset_bottom = 323.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_vbcv6")
+
+[node name="TitleAppearSound" type="AudioStreamPlayer" parent="." unique_id=1823694734]
+stream = ExtResource("4_3mj2l")

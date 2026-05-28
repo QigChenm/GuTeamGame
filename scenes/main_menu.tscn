@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bu50ib80xm8ly" path="res://assets/backgrounds/main_menu_bg.png" id="2_j7ex8"]
 [ext_resource type="Texture2D" uid="uid://cy08fpyecpnfn" path="res://assets/ui/title/标题_背景装饰遮罩_llf.png" id="3_flqon"]
 [ext_resource type="Texture2D" uid="uid://dfndmrb23uwbj" path="res://assets/ui/title/标题_开始游戏_默认_llf.png" id="3_lgwnu"]
+[ext_resource type="Texture2D" uid="uid://cfdajmp6r3tk5" path="res://assets/Title.png" id="4_8egab"]
 [ext_resource type="Texture2D" uid="uid://bc3vlcdydxj8v" path="res://assets/ui/title/标题_开始游戏_焦点_llf.png" id="4_flqon"]
 [ext_resource type="Texture2D" uid="uid://c8q0d1opbtmef" path="res://assets/ui/title/标题_读取存档_默认_llf.png" id="5_rcqid"]
 [ext_resource type="Texture2D" uid="uid://g7qowuwpsk1y" path="res://assets/ui/title/标题_读取存档_焦点_llf.png" id="6_1ajci"]
@@ -16,6 +17,9 @@
 [ext_resource type="Texture2D" uid="uid://ceeurkwo4witf" path="res://assets/ui/title/标题_关于游戏_默认_llf.png" id="12_a8gd2"]
 [ext_resource type="Texture2D" uid="uid://six5g7fklc0x" path="res://assets/ui/title/标题_关于游戏_焦点_llf.png" id="13_hstxw"]
 [ext_resource type="FontFile" uid="uid://cv4m0rys7x10i" path="res://assets/fonts/ChillRoundGothic_Bold.ttf" id="16_a8gd2"]
+[ext_resource type="AudioStream" uid="uid://benfluweto82g" path="res://assets/audio/bgm/sunny.mp3" id="17_j7ex8"]
+[ext_resource type="Texture2D" uid="uid://cc525ti35cwor" path="res://assets/ui/log/历史_语音重播_默认_llf.png" id="18_hstxw"]
+[ext_resource type="Texture2D" uid="uid://rbpumi1t7biq" path="res://assets/ui/log/历史_语音重播_焦点_llf.png" id="19_8egab"]
 
 [node name="MainMenu" type="Control" unique_id=258632053]
 layout_mode = 3
@@ -44,6 +48,18 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_flqon")
 
+[node name="TitleLabel" type="TextureRect" parent="." unique_id=1323882060]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -967.0
+offset_top = -222.0
+offset_right = -167.0
+offset_bottom = 578.0
+grow_horizontal = 2
+texture = ExtResource("4_8egab")
+
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1464608072]
 layout_mode = 1
 anchors_preset = 8
@@ -51,10 +67,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -866.0
-offset_top = -236.0
-offset_right = -604.0
-offset_bottom = 452.0
+offset_left = -858.0
+offset_top = -212.0
+offset_right = -596.0
+offset_bottom = 476.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 20
@@ -121,19 +137,18 @@ text = "旮旯给木 v0.1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TitleLabel" type="Label" parent="." unique_id=1671950897]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -869.0
-offset_top = 136.0
-offset_right = -149.0
-offset_bottom = 217.0
-grow_horizontal = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("16_a8gd2")
-theme_override_font_sizes/font_size = 80
-text = "请输入旮旯给木标题"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="BGMPlayer" type="AudioStreamPlayer" parent="." unique_id=1839176903]
+stream = ExtResource("17_j7ex8")
+volume_db = -5.45
+autoplay = true
+parameters/looping = true
+
+[node name="MuteButton" type="TextureButton" parent="." unique_id=1302950544]
+layout_mode = 0
+offset_left = 1840.0
+offset_top = 1016.0
+offset_right = 1884.0
+offset_bottom = 1053.0
+toggle_mode = true
+texture_normal = ExtResource("18_hstxw")
+texture_pressed = ExtResource("19_8egab")

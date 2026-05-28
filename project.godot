@@ -11,8 +11,9 @@ config_version=5
 [application]
 
 config/name="云端缪斯"
-run/main_scene="uid://xmkfm1nat6ew"
+run/main_scene="uid://bl0x60ry2c2mp"
 config/features=PackedStringArray("4.6", "Mobile")
+boot_splash/show_image=false
 config/icon="res://icon.svg"
 
 [audio]

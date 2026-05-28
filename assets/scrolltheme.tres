@@ -1,0 +1,39 @@
+[gd_resource type="Theme" format=3 uid="uid://b1oem1esmocuy"]
+
+[ext_resource type="Texture2D" uid="uid://dk5wl010rpj6r" path="res://assets/ui/universal/通用_纵向滚动条_底部_llf.png" id="1_te30u"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mi2xx"]
+bg_color = Color(0.36078432, 0.75686276, 0.8980392, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s8k0y"]
+bg_color = Color(0.8980392, 0.4509804, 0.4509804, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_te30u"]
+bg_color = Color(0.8980392, 0.4509804, 0.4509804, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8ahj7"]
+texture = ExtResource("1_te30u")
+texture_margin_left = 10.0
+texture_margin_right = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h2cgc"]
+
+[resource]
+/icons/VScrollBar = ExtResource("1_te30u")
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_mi2xx")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_s8k0y")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_te30u")
+VScrollBar/styles/scroll = SubResource("StyleBoxTexture_8ahj7")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxTexture_h2cgc")

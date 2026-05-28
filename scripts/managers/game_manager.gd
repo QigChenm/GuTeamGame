@@ -18,6 +18,7 @@ var dialogue_history: Array = []
 var current_scene: String = ""
 var open_settings_on_load: bool = false
 var open_gallery_on_load: bool = false
+var open_about_on_load: bool = false
 var text_speed: float = 0.05
 var auto_speed: float = 2.0
 var is_auto_mode: bool = false

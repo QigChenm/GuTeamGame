@@ -1,0 +1,197 @@
+[gd_scene format=3 uid="uid://bvxssbhe72ers"]
+
+[ext_resource type="Script" uid="uid://bbud2bnd602vk" path="res://scripts/scenes/intro_ui.gd" id="1_oru6d"]
+[ext_resource type="Texture2D" uid="uid://dt71gfuri6xii" path="res://assets/ui/universal/通用_界面背景_llf.png" id="2_pgitt"]
+[ext_resource type="Texture2D" uid="uid://y4nk1xmqvi2x" path="res://assets/ui/universal/通用_界面标题_关于游戏_llf.png" id="3_y1u6i"]
+[ext_resource type="Theme" uid="uid://b1oem1esmocuy" path="res://assets/scrolltheme.tres" id="4_a11jc"]
+[ext_resource type="FontFile" uid="uid://cv4m0rys7x10i" path="res://assets/fonts/ChillRoundGothic_Bold.ttf" id="4_y1u6i"]
+[ext_resource type="Texture2D" uid="uid://4ebrdujtg5ti" path="res://assets/Logo_org.png" id="5_a11jc"]
+
+[node name="IntroUI" type="CanvasLayer" unique_id=2089363437]
+script = ExtResource("1_oru6d")
+
+[node name="Background" type="TextureRect" parent="." unique_id=148990807]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_pgitt")
+
+[node name="Title" type="TextureRect" parent="." unique_id=1498905443]
+custom_minimum_size = Vector2(0, 100)
+offset_left = 797.0
+offset_top = 30.0
+offset_right = 1123.0
+offset_bottom = 160.0
+size_flags_horizontal = 4
+texture = ExtResource("3_y1u6i")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=755752613]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 240.0
+offset_top = 175.0
+offset_right = -123.0
+offset_bottom = -41.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_a11jc")
+theme_override_constants/scrollbar_h_separation = 100
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=1655709151]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 50
+
+[node name="VBoxContainer0" type="VBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=1438721258]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/VBoxContainer0" unique_id=2059562252]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.36078432, 0.75686276, 0.8980392, 1)
+theme_override_fonts/font = ExtResource("4_y1u6i")
+theme_override_font_sizes/font_size = 60
+text = "<制作团队>"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="ScrollContainer/VBoxContainer/VBoxContainer0" unique_id=1971378510]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("5_a11jc")
+
+[node name="TextLabel" type="Label" parent="ScrollContainer/VBoxContainer/VBoxContainer0" unique_id=505573742]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.36078432, 0.75686276, 0.8980392, 1)
+theme_override_constants/line_spacing = 8
+theme_override_fonts/font = ExtResource("4_y1u6i")
+theme_override_font_sizes/font_size = 36
+text = "咕算队
+GuTeam"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer1" type="VBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=255176157]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/VBoxContainer1" unique_id=158746805]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.36078432, 0.75686276, 0.8980392, 1)
+theme_override_fonts/font = ExtResource("4_y1u6i")
+theme_override_font_sizes/font_size = 60
+text = "<游戏版本>"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextLabel" type="Label" parent="ScrollContainer/VBoxContainer/VBoxContainer1" unique_id=675214845]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.36078432, 0.75686276, 0.8980392, 1)
+theme_override_constants/line_spacing = 8
+theme_override_fonts/font = ExtResource("4_y1u6i")
+theme_override_font_sizes/font_size = 36
+text = "游戏版本 - 0.1.00
+发行日期 - 未发行"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=1203540989]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/VBoxContainer2" unique_id=735215885]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.36078432, 0.75686276, 0.8980392, 1)
+theme_override_fonts/font = ExtResource("4_y1u6i")
+theme_override_font_sizes/font_size = 60
+text = "<制作人员>"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextLabel" type="Label" parent="ScrollContainer/VBoxContainer/VBoxContainer2" unique_id=1498899621]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.36078432, 0.75686276, 0.8980392, 1)
+theme_override_constants/line_spacing = 8
+theme_override_fonts/font = ExtResource("4_y1u6i")
+theme_override_font_sizes/font_size = 36
+text = "文本设计 - AI
+UI设计 - 烈林凤
+美术设计 - Leechee
+AI工程 - uke
+进程检测 - Victoria
+程序设计 - 青丞"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=1158704687]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/VBoxContainer3" unique_id=1676418129]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.36078432, 0.75686276, 0.8980392, 1)
+theme_override_fonts/font = ExtResource("4_y1u6i")
+theme_override_font_sizes/font_size = 60
+text = "<游戏介绍>"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextLabel" type="Label" parent="ScrollContainer/VBoxContainer/VBoxContainer3" unique_id=77691287]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.36078432, 0.75686276, 0.8980392, 1)
+theme_override_constants/line_spacing = 8
+theme_override_fonts/font = ExtResource("4_y1u6i")
+theme_override_font_sizes/font_size = 36
+text = "《心屿·南雍》（暂定名）是一款为大学生量身定制的心理减压互动作品。在这里，没有激烈的战斗，也没有复杂的规则——你只需跟随故事的指引，在一个个熟悉又温柔的校园场景中，停下脚步，与自己对话。
+
+我们相信，压力不应被忽视，也无需独自硬扛。游戏中的每一次选择、每一段对话，都是一次情绪的梳理与释放。你可以在这里暂时卸下焦虑，像躺在北大楼前的草坪上晒太阳一样，让思绪慢慢舒展开来。
+
+本作由南京大学学生团队制作，献给每一位在学业与生活中努力前行的你。愿这片小小的心屿，能成为你片刻的安宁。"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=845328468]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/VBoxContainer4" unique_id=1230050852]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.36078432, 0.75686276, 0.8980392, 1)
+theme_override_fonts/font = ExtResource("4_y1u6i")
+theme_override_font_sizes/font_size = 60
+text = "<想说的话>"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextLabel" type="Label" parent="ScrollContainer/VBoxContainer/VBoxContainer4" unique_id=1051715734]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.36078432, 0.75686276, 0.8980392, 1)
+theme_override_constants/line_spacing = 8
+theme_override_fonts/font = ExtResource("4_y1u6i")
+theme_override_font_sizes/font_size = 36
+text = "大家好！我们是咕算队（GuTeam）——四名来自南京大学的大一学生。
+
+做这个游戏的念头，源于我们身边太多朋友（包括我们自己）被焦虑、失眠、自我怀疑困扰。我们不是心理专家，但我们想用最擅长的方式——做游戏——来传递一点温暖。
+
+开发过程中，我们反复问自己：“如果我是玩家，此刻最想听到什么？”答案是：“没关系，你已经很好了。”
+
+所以，我们把这句话藏进了游戏的某个角落。希望你在不经意间读到它时，能感到一丝被理解的宽慰。
+
+感谢南京大学心理中心提供的指导，感谢每一位参与测试的同学。如果你在游戏中获得了一点点平静，那就是我们最大的荣幸。
+
+最后，记得：累了就歇一歇，你的努力本身就值得被看见。
+
+—— 咕算队 全体成员
+2026年初夏 · 鼓楼"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3

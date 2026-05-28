@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cwawpnhff5jt" path="res://assets/ui/universal/通用_界面标题_对话历史_llf.png" id="2_21doy"]
 [ext_resource type="Texture2D" uid="uid://dt71gfuri6xii" path="res://assets/ui/universal/通用_界面背景_llf.png" id="2_mbgkq"]
 [ext_resource type="Texture2D" uid="uid://b7grcdourqbc3" path="res://assets/ui/log/历史_头像框_llf.png" id="4_l41xu"]
+[ext_resource type="Theme" uid="uid://b1oem1esmocuy" path="res://assets/scrolltheme.tres" id="4_pnwbg"]
 [ext_resource type="FontFile" uid="uid://cv4m0rys7x10i" path="res://assets/fonts/ChillRoundGothic_Bold.ttf" id="5_pnwbg"]
 
 [node name="BacklogUI" type="CanvasLayer" unique_id=15337538]
@@ -32,9 +33,11 @@ texture = ExtResource("2_21doy")
 [node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1482037570]
 offset_left = 247.0
 offset_top = 168.0
-offset_right = 1683.0
-offset_bottom = 1080.0
+offset_right = 1658.0
+offset_bottom = 1033.0
 size_flags_vertical = 3
+theme = ExtResource("4_pnwbg")
+theme_override_constants/scrollbar_h_separation = 100
 theme_override_constants/scrollbar_v_separation = 10
 
 [node name="RichTextLabel" type="RichTextLabel" parent="ScrollContainer" unique_id=435973103]

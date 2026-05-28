@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://bj5wkt0mlf3kx" path="res://assets/ui/dialogue/对话_读档_默认_llf.png" id="13_y2nlu"]
 [ext_resource type="Texture2D" uid="uid://53e476tn1etm" path="res://assets/ui/dialogue/对话_读档_焦点_llf.png" id="14_kp442"]
 [ext_resource type="Texture2D" uid="uid://dwupg312riffp" path="res://assets/ui/dialogue/对话_设置_默认_llf.png" id="15_gltyx"]
+[ext_resource type="PackedScene" uid="uid://bvxssbhe72ers" path="res://scenes/intro_ui.tscn" id="15_vh1iw"]
 [ext_resource type="Texture2D" uid="uid://dt5e4hoeoaetb" path="res://assets/ui/dialogue/对话_设置_焦点 (2)_llf.png" id="16_mgfyp"]
 [ext_resource type="Texture2D" uid="uid://dt4ssdt3odwly" path="res://assets/ui/dialogue/对话_快进_默认_llf.png" id="16_of3ib"]
 [ext_resource type="Texture2D" uid="uid://cnmaoeiuxo4sb" path="res://assets/ui/dialogue/对话_快进_焦点_llf.png" id="17_7600b"]
@@ -118,6 +119,8 @@ visible = false
 
 [node name="TipUI" parent="." unique_id=1705226357 instance=ExtResource("11_of3ib")]
 visible = false
+
+[node name="IntroUI" parent="." unique_id=2089363437 instance=ExtResource("15_vh1iw")]
 
 [node name="QuickSaveButton" type="TextureButton" parent="." unique_id=136308939]
 offset_left = 1429.0

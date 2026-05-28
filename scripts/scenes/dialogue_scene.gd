@@ -186,6 +186,7 @@ func _instantiate_panels() -> void:
 	_load_and_register("BacklogUI", "res://scenes/backlog_ui.tscn")
 	_load_and_register("GalleryUI", "res://scenes/gallery_ui.tscn", func(panel): panel.custom_font = custom_font)
 	_load_and_register("TipUI", "res://scenes/tip_ui.tscn")
+	_load_and_register("AboutUI", "res://scenes/intro_ui.tscn")
 
 
 func _load_and_register(panel_name: String, scene_path: String, callback: Callable = Callable()) -> void:
@@ -218,6 +219,9 @@ func _start_game_flow() -> void:
 	elif SaveManager.continue_mode:
 		SaveManager.continue_mode = false
 		call_deferred("_open_load_panel_on_continue")
+	elif GameManager.open_about_on_load:
+		GameManager.open_about_on_load = false
+		call_deferred("_open_about_from_menu")
 	else:
 		if GameManager.current_scene == "":
 			GameManager.start_new_game()
@@ -788,6 +792,11 @@ func _on_gallery_closed_from_menu(panel_name: String) -> void:
 			get_tree().paused = false
 		GameManager.open_gallery_on_load = false
 		_return_to_main_menu()
+
+
+func _open_about_from_menu() -> void:
+	UIManager.open_panel("AboutUI")
+	UIManager.show_return_to_menu_button()
 
 
 # ================= 面板回调 =================
